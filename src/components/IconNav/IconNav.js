@@ -7,23 +7,24 @@ const NavLink = activeComponent('li')
 
 class NavBar extends Component {
   render () {
+    console.log(this.props)
     return (
       <nav className='iconav'>
-        <Link to='/' className='iconav-brand'>
-          <img src='http://192.168.1.195:3000/usep-logo.png' width='25' />
+        <Link to='/dashboard' className='iconav-brand'>
+          <img src='http://localhost:3000/usep-logo.png' width='25' />
         </Link>
         <div className='iconav-slider'>
           <ul className='nav nav-pills iconav-nav' role='tablist'>
             <OverlayTrigger
-              placement='right' overlay={<Tooltip id='admissions'>Admissions</Tooltip>}>
-              <NavLink to='/admissions' onlyActiveOnIndex>
+              placement='right' overlay={<Tooltip id='admissions'>Accounts</Tooltip>}>
+              <NavLink to='/dashboard/accounts' onlyActiveOnIndex>
                 <span className='icon icon-users' />
-                <small className='iconav-nav-label visible-xs-block'>Admissions</small></NavLink></OverlayTrigger>
+                <small className='iconav-nav-label visible-xs-block'>Accounts</small></NavLink></OverlayTrigger>
             <OverlayTrigger
-              placement='right' overlay={<Tooltip id='entities'>Entities</Tooltip>}>
-              <NavLink to='/tables' onlyActiveOnIndex>
-                <span className='icon icon-flow-parallel' />
-                <small className='iconav-nav-label visible-xs-block'>Entities</small></NavLink></OverlayTrigger>
+              placement='right' overlay={<Tooltip id='entities'>Profile</Tooltip>}>
+              <NavLink to='/dashboard/me' onlyActiveOnIndex>
+                <span className='icon icon-v-card' />
+                <small className='iconav-nav-label visible-xs-block'>Profile</small></NavLink></OverlayTrigger>
           </ul>
         </div>
       </nav>

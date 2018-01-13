@@ -181,7 +181,7 @@ class Admission extends Component {
         <div className='col-sm-12 content'>
           <div className='dashhead'>
             <div className='dashhead-titles'>
-              <h6 className='dashhead-subtitle'>USEP-KMSD | Admission's Support Module</h6>
+              <h6 className='dashhead-subtitle'>USEP-KMSD | USEP Portal</h6>
               {/* <h3 className='dashhead-title'>Registered Applicants {<AdmissionToExcel {...this.props} />}</h3> */}
               <h3 className='dashhead-title'>Registered Applicants</h3>
             </div>

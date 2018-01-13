@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 
-class Account extends Component {
+class Profile extends Component {
   render () {
     return (
       <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
@@ -9,7 +8,7 @@ class Account extends Component {
           <div className='dashhead'>
             <div className='dashhead-titles'>
               <h6 className='dashhead-subtitle'>USEP-KMSD | USEP Portal</h6>
-              <h3 className='dashhead-title'>Accounts</h3>
+              <h3 className='dashhead-title'>Profile</h3>
             </div>
           </div>
         </div>
@@ -22,8 +21,8 @@ class Account extends Component {
   }
 }
 
-Account.propTypes = {
+Profile.propTypes = {
 
 }
 
-export default Account
+export default Profile
