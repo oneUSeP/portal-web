@@ -10,7 +10,7 @@ class DashboardLayout extends Component {
       <div className='with-iconav'>
         <Alert stack={{limit: 3}} />
         <LoadingBar style={{position: 'fixed', top: 0, left: 0, backgroundColor: '#009dc7', zIndex: 9999, height: 5}} />
-        {(!isLogin) && <IconNav />}
+        {(!isLogin) && <IconNav {...this.props} />}
         <div className='container-fluid'>
           {this.props.children}
         </div>

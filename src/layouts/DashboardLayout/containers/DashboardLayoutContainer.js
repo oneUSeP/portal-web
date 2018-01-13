@@ -7,7 +7,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  accessToken: state.auth.get('accessToken'),
+  user: state.auth.get('user')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(DashboardLayout)

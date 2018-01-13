@@ -7,7 +7,7 @@ const NavLink = activeComponent('li')
 
 class NavBar extends Component {
   render () {
-    console.log(this.props)
+    let userRole = this.props.user.get('role')
     return (
       <nav className='iconav'>
         <Link to='/dashboard' className='iconav-brand'>
@@ -15,16 +15,16 @@ class NavBar extends Component {
         </Link>
         <div className='iconav-slider'>
           <ul className='nav nav-pills iconav-nav' role='tablist'>
-            <OverlayTrigger
+            {userRole == 'admin' ? <OverlayTrigger
               placement='right' overlay={<Tooltip id='admissions'>Accounts</Tooltip>}>
-              <NavLink to='/dashboard/accounts' onlyActiveOnIndex>
-                <span className='icon icon-users' />
-                <small className='iconav-nav-label visible-xs-block'>Accounts</small></NavLink></OverlayTrigger>
-            <OverlayTrigger
+            <NavLink to='/dashboard/accounts' onlyActiveOnIndex>
+              <span className='icon icon-users' />
+              <small className='iconav-nav-label visible-xs-block'>Accounts</small></NavLink></OverlayTrigger> : null}
+            {userRole == 'student' ? <OverlayTrigger
               placement='right' overlay={<Tooltip id='entities'>Profile</Tooltip>}>
-              <NavLink to='/dashboard/me' onlyActiveOnIndex>
-                <span className='icon icon-v-card' />
-                <small className='iconav-nav-label visible-xs-block'>Profile</small></NavLink></OverlayTrigger>
+            <NavLink to='/dashboard/me' onlyActiveOnIndex>
+              <span className='icon icon-v-card' />
+              <small className='iconav-nav-label visible-xs-block'>Profile</small></NavLink></OverlayTrigger> : null}
           </ul>
         </div>
       </nav>
