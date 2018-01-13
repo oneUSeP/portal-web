@@ -65,7 +65,7 @@ class LoginForm extends Component {
   render () {
     return (
       <form className='form-access' onSubmit={this.onSubmit}>
-        <div className='form-group row'>
+        <div className='form-group row text-center'>
           <div className='input-group col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8'>
             <TextFieldGroup
               onChange={this.onChange}
@@ -74,10 +74,6 @@ class LoginForm extends Component {
               placeholder='Account ID'
               error={this.state.errors.accountId}
               />
-          </div>
-        </div>
-        <div className='form-group row'>
-          <div className='input-group col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8'>
             <TextFieldGroup
               type='password'
               onChange={this.onChange}
