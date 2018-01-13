@@ -13,14 +13,8 @@ class Profile extends Component {
           </div>
         </div>
 
-        <div className='w-sm m-x-auto'>
-          <canvas
-            className='ex-graph'
-            width='200' height='200'
-            data-chart='doughnut'
-            data-value="[{ value: 230, color: '#1ca8dd', label: 'Returning' }, { value: 130, color: '#1bc98e', label: 'New' }]"
-            data-segment-stroke-color='#252830'>
-          </canvas>
+        <div className='container'>
+
         </div>
       </div>
     )
