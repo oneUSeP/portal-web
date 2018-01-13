@@ -30,6 +30,7 @@ class LoginForm extends Component {
       })
     }
     if (newProps.auth.get('loginSuccess')) {
+      console.log(newProps)
       let user = newProps.auth.get('user')
       Alert.success(`Welcome! ${user.get('username')}`, {
         position: 'top-right',
