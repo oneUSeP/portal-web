@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ProfileForm from './ProfileForm'
 import upperCase from 'upper-case'
+import Loading from '../../../../components/common/Loading'
 
 class Profile extends Component {
 
@@ -10,7 +11,7 @@ class Profile extends Component {
   }
 
   render () {
-    let { profile } = this.props
+    let { profile, fetchingProfile } = this.props
     if (profile) {
       var image = profile.get('StudentPicture')
     }
@@ -34,10 +35,11 @@ class Profile extends Component {
               </div>
               <div className='col-sm-4 m-b-sm'>
                 <div className='w-lg m-x-auto'>
-                  <img src={image ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} alt='' className='img-circle img-responsive' />
+                  <Loading hidden={!fetchingProfile} />
+                  {!fetchingProfile ? <img src={image ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} alt='' className='img-circle img-responsive' /> : null}
                 </div>
-                <strong className='text-muted'>{profile ? profile.get('StudentNo') : 'Empty'}</strong>
-                <h3>{profile ? upperCase(profile.get('LastName')) + ', ' + profile.get('FirstName') + ' ' + profile.get('MiddleName') : ''}</h3>
+                {!fetchingProfile ? <strong className='text-muted'>{profile ? profile.get('StudentNo') : 'Empty'}</strong> : null}
+                {!fetchingProfile ? <h3>{profile ? upperCase(profile.get('LastName')) + ', ' + profile.get('FirstName') + ' ' + profile.get('MiddleName') : ''}</h3> : null}
               </div>
               <div className='col-sm-4 m-b-md'>
                 <div className='w-lg m-x-auto'>
