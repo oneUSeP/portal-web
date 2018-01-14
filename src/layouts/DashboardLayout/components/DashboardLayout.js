@@ -9,7 +9,7 @@ class DashboardLayout extends Component {
     const isLogin = /^\/login\/?\??/i.test(location.pathname)
     return (
       <div className='with-iconav'>
-        <LoadingBar style={{position: 'fixed', top: 0, left: 0, backgroundColor: '#009dc7', zIndex: 9999, height: 5}} />
+        <LoadingBar style={{position: 'fixed', top: 0, left: 0, backgroundColor: '#800000', zIndex: 9999, height: 5}} />
         {(!isLogin) && <IconNav {...this.props} />}
         <div className='container-fluid'>
           {this.props.children}

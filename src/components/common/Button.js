@@ -10,10 +10,9 @@ class Button extends Component {
       <center>
         <button
           value={value}
-          hidden={hidden}
           disabled={disabled}
           className={classnames('btn', className)}
-        >
+          style={{display: hidden ? 'none' : null}}>
           {value}
         </button>
         <Loading hidden={!hidden} />

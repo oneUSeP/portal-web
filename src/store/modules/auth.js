@@ -491,6 +491,7 @@ const initialState = Immutable.fromJS({
   accessToken: null,
   loginError: null,
   loadError: null,
+  loggingIn: null,
   loginSuccess: false,
   emailExists: null,
   emailVerified: null,
