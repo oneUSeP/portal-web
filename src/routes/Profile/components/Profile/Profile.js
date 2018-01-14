@@ -23,7 +23,7 @@ class Profile extends Component {
           </div>
         </div>
 
-        <hr className='m-t-0 m-b-lg' />
+        <hr className='m-t-0 m-b-sm' />
 
         <div className='tab-content'>
           <div role='tabpanel' className='tab-pane active' id='traffic'>
@@ -32,7 +32,7 @@ class Profile extends Component {
                 <div className='w-lg m-x-auto'>
                 </div>
               </div>
-              <div className='col-sm-4 m-b-lg'>
+              <div className='col-sm-4 m-b-sm'>
                 <div className='w-lg m-x-auto'>
                   <img src={image ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} alt='' className='img-circle img-responsive' />
                 </div>
@@ -47,7 +47,7 @@ class Profile extends Component {
           </div>
         </div>
 
-        <div className='hr-divider m-t m-b'>
+        <div className='hr-divider m-t m-b-lg'>
           <h3 className='hr-divider-content hr-divider-heading'>Personal Information</h3>
         </div>
 
