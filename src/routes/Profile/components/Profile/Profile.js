@@ -27,7 +27,7 @@ class Profile extends Component {
         <hr className='m-t-0 m-b-sm' />
 
         <div className='tab-content'>
-          <Loading hidden={!fetchingProfile} />
+          <div className='text-center'><Loading hidden={!fetchingProfile} /></div>
           {!fetchingProfile ? <div role='tabpanel' className='tab-pane active' id='traffic'>
             <div className='row m-t-md'>
               <div className='col-sm-4 m-b-md'>
