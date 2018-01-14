@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
+import ProfileForm from './ProfileForm'
 
 class Profile extends Component {
+
+  componentWillMount () {
+    let user = this.props.auth.get('user')
+    this.props.getProfile(user.get('username'))
+  }
+
   render () {
     return (
       <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
