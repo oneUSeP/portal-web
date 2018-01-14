@@ -27,33 +27,37 @@ class Profile extends Component {
         <hr className='m-t-0 m-b-sm' />
 
         <div className='tab-content'>
-          <div role='tabpanel' className='tab-pane active' id='traffic'>
-            <div className='row text-center m-t-md'>
+          <Loading hidden={!fetchingProfile} />
+          {!fetchingProfile ? <div role='tabpanel' className='tab-pane active' id='traffic'>
+            <div className='row m-t-md'>
               <div className='col-sm-4 m-b-md'>
                 <div className='w-lg m-x-auto'>
                 </div>
               </div>
               <div className='col-sm-4 m-b-sm'>
                 <div className='w-lg m-x-auto'>
-                  <Loading hidden={!fetchingProfile} />
-                  {!fetchingProfile ? <img src={image ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} alt='' className='img-circle img-responsive' /> : null}
+                {!fetchingProfile
+                  ? <div style={{position: 'relative', height: '0', paddingBottom: '100%', overflow: 'hidden', borderRadius: '50%'}}><img src={image ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} alt='' style={{position: 'absolute', width: '100%', height: '100%', objectFit: 'cover', textAlign: 'left !important'}} /></div>
+                  : null}
                 </div>
-                {!fetchingProfile ? <strong className='text-muted'>{profile ? profile.get('StudentNo') : 'Empty'}</strong> : null}
-                {!fetchingProfile ? <h3>{profile ? upperCase(profile.get('LastName')) + ', ' + profile.get('FirstName') + ' ' + profile.get('MiddleName') : ''}</h3> : null}
+                {!fetchingProfile ? <div className='text-center'>
+                  <strong className='text-muted'>{profile ? profile.get('StudentNo') : 'Empty'}</strong>
+                  <h3>{profile ? upperCase(profile.get('LastName')) + ', ' + profile.get('FirstName') + ' ' + (profile.get('MiddleName') ? profile.get('MiddleName') : '') + (profile.get('ExtName') ? ', ' + profile.get('ExtName') : '') : ''}</h3>
+                </div> : null}
               </div>
               <div className='col-sm-4 m-b-md'>
                 <div className='w-lg m-x-auto'>
                 </div>
               </div>
             </div>
-          </div>
+          </div> : null}
         </div>
 
-        <div className='hr-divider m-t m-b-lg'>
+       {!fetchingProfile ? <div className='hr-divider m-t m-b-lg'>
           <h3 className='hr-divider-content hr-divider-heading'>Personal Information</h3>
-        </div>
+        </div> : null}
 
-        <hr className='m-t-0 m-b-md' />
+        {!fetchingProfile ? <hr className='m-t-0 m-b-md' /> : null}
 
       </div>
     )
