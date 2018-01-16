@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import IconNav from '../../../components/IconNav'
 import LoadingBar from 'react-redux-loading-bar'
 
 import 'antd/lib/layout/style/css'
@@ -13,7 +12,8 @@ const { Header, Sider, Content } = Layout
 class DashboardLayout extends Component {
   state = {
     collapsed: false
-  };
+  }
+
   toggle = () => {
     this.setState({
       collapsed: !this.state.collapsed
@@ -21,7 +21,6 @@ class DashboardLayout extends Component {
   }
 
   render () {
-    const isLogin = /^\/login\/?\??/i.test(location.pathname)
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <LoadingBar style={{position: 'fixed', top: 0, left: 0, backgroundColor: '#800000', zIndex: 9999, height: 5}} />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import TextFieldGroup from 'components/common/TextFieldGroup'
-import validateInput from 'utils/validators/login'
-import Alert from 'react-s-alert'
+
+import { Form, Icon, Input, Button, Row, Col, notification } from 'antd'
+const FormItem = Form.Item
 
 import 'antd/lib/layout/style/css'
 import 'antd/lib/menu/style/css'
@@ -13,9 +13,8 @@ import 'antd/lib/button/style/css'
 import 'antd/lib/checkbox/style/css'
 import 'antd/lib/row/style/css'
 import 'antd/lib/col/style/css'
+import 'antd/lib/notification/style/css'
 import './style.css'
-import { Form, Icon, Input, Button, Checkbox, Row, Col } from 'antd'
-const FormItem = Form.Item
 
 class LoginForm extends Component {
   constructor (props) {
@@ -31,23 +30,6 @@ class LoginForm extends Component {
   componentWillReceiveProps (newProps, oldProps) {
     if (!newProps.auth.get('loggingIn')) {
       this.setState({ isLoading: false })
-    }
-    if (newProps.auth.get('loginError')) {
-      let code = newProps.auth.get('loginError').get('code')
-      let message = newProps.auth.get('loginError').get('message')
-      Alert.error(`<h4>Error ${code}</h4><ul>` + (message ? (`<li>${message}</li>`) : '') + '</ul>', {
-        position: 'top-right',
-        effect: 'scale',
-        html: true
-      })
-    }
-    if (newProps.auth.get('loginSuccess')) {
-      console.log(newProps)
-      let user = newProps.auth.get('user')
-      Alert.success(`Welcome! ${user.get('username')}`, {
-        position: 'top-right',
-        effect: 'scale'
-      })
     }
   }
 
@@ -68,13 +50,12 @@ class LoginForm extends Component {
   }
 
   render () {
-    console.log(this.state)
     const { getFieldDecorator } = this.props.form
     return (
       <Row>
-        <Col span={8} />
-        <Col span={8}>
-          <Form onSubmit={this.handleSubmit} className='login-form'>
+        <Col xs={2} sm={3} md={4} lg={6} xl={8} xxl={8} />
+        <Col xs={20} sm={18} md={16} lg={12} xl={8} xxl={8}>
+          <Form className='login-form'>
             <FormItem>
               {getFieldDecorator('accountId', {
                 rules: [{ required: true, message: 'Please input your Account ID!' }]
@@ -98,7 +79,7 @@ class LoginForm extends Component {
             </FormItem>
           </Form>
         </Col>
-        <Col span={8} />
+        <Col xs={2} sm={3} md={4} lg={6} xl={8} xxl={8} />
       </Row>
     )
   }

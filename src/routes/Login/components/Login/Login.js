@@ -1,16 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import LoginForm from './LoginForm'
-import {Link} from 'react-router'
 
 import 'antd/lib/form/style/css'
-import 'antd/lib/icon/style/css'
-import 'antd/lib/input/style/css'
-import 'antd/lib/input-number/style/css'
-import 'antd/lib/button/style/css'
-import 'antd/lib/checkbox/style/css'
+import 'antd/lib/notification/style/css'
 
-import { Form, Icon, Input, Button, Checkbox } from 'antd'
-const FormItem = Form.Item
+import { Form, notification } from 'antd'
 
 export default class Login extends Component {
   static propTypes = {
@@ -18,8 +12,22 @@ export default class Login extends Component {
     auth: PropTypes.object
   }
 
+  openNotification = (message, description) => {
+    notification.error({
+      message: message,
+      description: description
+    })
+  }
+
+  componentWillReceiveProps (newProps, oldProps) {
+    if (newProps.auth.get('loginError')) {
+      let code = newProps.auth.get('loginError').get('code')
+      let message = newProps.auth.get('loginError').get('message')
+      this.openNotification('Login failed', message)
+    }
+  }
+
   render () {
-    const { loading } = this.props.auth
     const WrappedNormalLoginForm = Form.create()(LoginForm)
     return (
       <WrappedNormalLoginForm {...this.props} />
