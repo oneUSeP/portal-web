@@ -42,7 +42,27 @@ class DashboardLayout extends Component {
               <Icon type='user' />
               <span>Profile</span>
             </NavLink> : null}
-            {userRole == 'admin' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='2' to='/dashboard/accounts'>
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='2' to='/dashboard/grades'>
+              <Icon type='book' />
+              <span>Grades</span>
+            </NavLink> : null}
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='3' to='/dashboard/evaluation'>
+              <Icon type='dot-chart' />
+              <span>Evaluation</span>
+            </NavLink> : null}
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='4' to='/dashboard/advising'>
+              <Icon type='exception' />
+              <span>Advising</span>
+            </NavLink> : null}
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='5' to='/dashboard/accoutabilities'>
+              <Icon type='calculator' />
+              <span>Accountabilites</span>
+            </NavLink> : null}
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='6' to='/dashboard/downloads'>
+              <Icon type="cloud-download-o" />
+              <span>Downloads</span>
+            </NavLink> : null}
+            {userRole == 'admin' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='7' to='/dashboard/accounts'>
               <Icon type='team' />
               <span>Accounts</span>
             </NavLink> : null}
