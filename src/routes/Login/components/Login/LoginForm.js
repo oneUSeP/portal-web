@@ -73,7 +73,7 @@ class LoginForm extends Component {
             <FormItem>
               <a className='login-form-forgot' href='' disabled>Forgot password</a>
               <Button loading={this.state.isLoading} onClick={this.check} type='primary' htmlType='submit' className='login-form-button'>
-                Log in
+                Log In
               </Button>
               Or <a href='' disabled>register now!</a>
             </FormItem>
