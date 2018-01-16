@@ -8,7 +8,7 @@ import 'antd/lib/spin/style/css'
 import 'antd/lib/popover/style/css'
 import './styles.css'
 
-import { Row, Col, Card, Icon, Avatar, Spin, Popover, Button } from 'antd'
+import { Row, Col, Card, Icon, Avatar, Spin, Popover, Button, Tooltip } from 'antd'
 const { Meta } = Card
 
 import toUpper from 'upper-case'
@@ -44,7 +44,7 @@ class Profile extends Component {
             cover={fetchingProfile ? (<div className='example'>
             <Spin />
           </div>) : (<img alt='example' src={profile ? 'data:image/png;base64, ' + profile.get('StudentPicture') : 'http://localhost:3000/usep-logo.png'} />)}
-            actions={[<Icon type={fetchingProfile ? 'loading' : 'setting'} />, <Icon type={fetchingProfile ? 'loading' : 'edit'} />, <Icon type={fetchingProfile ? 'loading' : 'ellipsis'} />]}>
+            actions={[<Icon type={fetchingProfile ? 'loading' : 'setting'} />, <Tooltip placement="bottom" title={'Edit your information'}><Icon type={fetchingProfile ? 'loading' : 'edit'} /></Tooltip>, <Icon type={fetchingProfile ? 'loading' : 'ellipsis'} />]}>
             <Meta
               avatar={<Avatar style={{ backgroundColor: '#f56a00', verticalAlign: 'middle' }} size='large' >{profile ? profile.get('FirstName').charAt(0) : 'Empty'}</Avatar>}
               title={profile ? toUpper(profile.get('LastName')) + ', ' + profile.get('FirstName') + ' ' + profile.get('MiddleName') : 'Empty'}
@@ -53,7 +53,7 @@ class Profile extends Component {
           </Card>
         </Col>
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 16, offset: 1 }} lg={{ span: 17, offset: 1 }} xl={{ span: 18, offset: 1 }}>
-          <Card title="Academic Information" extra={<Popover
+          <Card title="Personal Information" extra={<Popover
             content={<a onClick={this.hide}>Save it!</a>}
             trigger="click"
             visible={this.state.visible}
