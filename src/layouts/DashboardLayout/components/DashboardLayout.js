@@ -13,10 +13,11 @@ import './style.css'
 
 import { Layout, Menu, Icon, Avatar } from 'antd'
 const { Header, Sider, Content } = Layout
+const { SubMenu } = Menu
 
 class DashboardLayout extends Component {
   state = {
-    collapsed: false
+    collapsed: true
   }
 
   toggle = () => {
@@ -38,34 +39,65 @@ class DashboardLayout extends Component {
             <img style={{width: this.state.collapsed ? '100%' : '50%'}} src='http://localhost:3000/usep-logo.png' />
           </div></Link>
           <Menu theme='dark' mode='inline' defaultSelectedKeys={['1']}>
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='1' to='/dashboard/me'>
-              <Icon type='user' />
-              <span>Profile</span>
-            </NavLink> : null}
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='2' to='/dashboard/grades'>
+          <SubMenu key="sub1" title={<span><Icon type="user" /><span>Profile</span></span>}>
+          {userRole == 'student'
+            ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='1' to='/dashboard/me'>
+                <Icon type='profile' />
+                <span>Basic Information</span>
+              </NavLink>
+            : null}
+          {userRole == 'student'
+          ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='2' to='/dashboard/profpic'>
+              <Icon type='picture' />
+              <span>Profile Picture</span>
+            </NavLink>
+          : null}
+          {userRole == 'student'
+          ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='3' to='/dashboard/changepass'>
+              <Icon type='lock' />
+              <span>Change Password</span>
+            </NavLink>
+          : null}
+          {userRole == 'student'
+          ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='4' to='/dashboard/changeemail'>
+              <Icon type='mail' />
+              <span>Change Email</span>
+            </NavLink>
+          : null}
+          {userRole == 'student'
+          ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='5' to='/dashboard/settings'>
+              <Icon type='setting' />
+              <span>Settings</span>
+            </NavLink>
+          : null}
+          </SubMenu>
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='6' to='/dashboard/grades'>
               <Icon type='book' />
               <span>Grades</span>
             </NavLink> : null}
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='3' to='/dashboard/evaluation'>
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='7' to='/dashboard/evaluation'>
               <Icon type='dot-chart' />
               <span>Evaluation</span>
             </NavLink> : null}
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='4' to='/dashboard/advising'>
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='8' to='/dashboard/advising'>
               <Icon type='exception' />
               <span>Advising</span>
             </NavLink> : null}
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='5' to='/dashboard/accoutabilities'>
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='9' to='/dashboard/accoutabilities'>
               <Icon type='calculator' />
               <span>Accountabilites</span>
             </NavLink> : null}
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='6' to='/dashboard/downloads'>
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='10' to='/dashboard/downloads'>
               <Icon type="cloud-download-o" />
               <span>Downloads</span>
             </NavLink> : null}
-            {userRole == 'admin' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='7' to='/dashboard/accounts'>
-              <Icon type='team' />
-              <span>Accounts</span>
-            </NavLink> : null}
+            {userRole == 'admin'
+            ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='11' to='/dashboard/accounts'>
+                <Icon type='team' />
+                <span>Accounts</span>
+              </NavLink>
+            : null}
+            
           </Menu>
         </Sider>
         <Layout>

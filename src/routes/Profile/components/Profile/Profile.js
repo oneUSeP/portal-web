@@ -5,15 +5,26 @@ import 'antd/lib/card/style/css'
 import 'antd/lib/icon/style/css'
 import 'antd/lib/avatar/style/css'
 import 'antd/lib/spin/style/css'
+import 'antd/lib/popover/style/css'
 import './styles.css'
 
-import { Row, Col, Card, Icon, Avatar, Spin } from 'antd'
+import { Row, Col, Card, Icon, Avatar, Spin, Popover, Button } from 'antd'
 const { Meta } = Card
 
 import toUpper from 'upper-case'
 
-import ProfileTabs from './ProfileTabs'
 class Profile extends Component {
+  state = {
+    visible: false,
+  }
+  hide = () => {
+    this.setState({
+      visible: false,
+    });
+  }
+  handleVisibleChange = (visible) => {
+    this.setState({ visible });
+  }
 
   componentWillMount () {
     let user = this.props.auth.get('user')
@@ -41,7 +52,18 @@ class Profile extends Component {
             />
           </Card>
         </Col>
-        <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 16, offset: 1 }} lg={{ span: 17, offset: 1 }} xl={{ span: 18, offset: 1 }}><ProfileTabs {...this.props} /></Col>
+        <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 16, offset: 1 }} lg={{ span: 17, offset: 1 }} xl={{ span: 18, offset: 1 }}>
+          <Card title="Academic Information" extra={<Popover
+            content={<a onClick={this.hide}>Save it!</a>}
+            trigger="click"
+            visible={this.state.visible}
+            onVisibleChange={this.handleVisibleChange}
+          ><Button onClick={this.hide} shape="circle" type="primary" icon="save" size='large'/></Popover>} style={{ width: '100%' }}>
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+          </Card>
+        </Col>
       </Row>
     )
   }
