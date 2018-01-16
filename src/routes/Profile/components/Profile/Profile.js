@@ -6,9 +6,11 @@ import 'antd/lib/icon/style/css'
 import 'antd/lib/avatar/style/css'
 import 'antd/lib/spin/style/css'
 import 'antd/lib/popover/style/css'
+import 'antd/lib/popconfirm/style/css'
+import 'antd/lib/message/style/css'
 import './styles.css'
 
-import { Row, Col, Card, Icon, Avatar, Spin, Popover, Button, Tooltip } from 'antd'
+import { Row, Col, Card, Icon, Avatar, Spin, Popover, Button, Tooltip, Popconfirm, message } from 'antd'
 const { Meta } = Card
 
 import toUpper from 'upper-case'
@@ -17,11 +19,13 @@ class Profile extends Component {
   state = {
     visible: false,
   }
+
   hide = () => {
     this.setState({
       visible: false,
     });
   }
+
   handleVisibleChange = (visible) => {
     this.setState({ visible });
   }
@@ -29,6 +33,16 @@ class Profile extends Component {
   componentWillMount () {
     let user = this.props.auth.get('user')
     this.props.getProfile(user.get('username'))
+  }
+
+  confirm = (e) => {
+    console.log(e);
+    message.success('Click on Yes');
+  }
+  
+  cancel = (e) => {
+    console.log(e);
+    message.error('Click on No');
   }
 
   render () {
@@ -53,12 +67,7 @@ class Profile extends Component {
           </Card>
         </Col>
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 16, offset: 1 }} lg={{ span: 17, offset: 1 }} xl={{ span: 18, offset: 1 }}>
-          <Card title="Personal Information" extra={<Popover
-            content={<a onClick={this.hide}>Save it!</a>}
-            trigger="click"
-            visible={this.state.visible}
-            onVisibleChange={this.handleVisibleChange}
-          ><Button onClick={this.hide} shape="circle" type="primary" icon="save" size='large'/></Popover>} style={{ width: '100%' }}>
+          <Card title="Personal Information" extra={<Popconfirm title="Are you sure to save this changes?" onConfirm={this.confirm} onCancel={this.cancel} okText="Yes" cancelText="No"><Button onClick={this.hide} shape="circle" type="ghost" icon="save" size='large'/></Popconfirm>} style={{ width: '100%' }}>
             <p>Card content</p>
             <p>Card content</p>
             <p>Card content</p>

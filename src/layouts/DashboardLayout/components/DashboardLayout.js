@@ -9,9 +9,13 @@ import 'antd/lib/layout/style/css'
 import 'antd/lib/menu/style/css'
 import 'antd/lib/icon/style/css'
 import 'antd/lib/avatar/style/css'
+import 'antd/lib/row/style/css'
+import 'antd/lib/col/style/css'
+import 'antd/lib/popconfirm/style/css'
+import 'antd/lib/message/style/css'
 import './style.css'
 
-import { Layout, Menu, Icon, Avatar } from 'antd'
+import { Layout, Menu, Icon, Avatar, Row, Col, Button, Tooltip, Popconfirm, message } from 'antd'
 const { Header, Sider, Content } = Layout
 const { SubMenu } = Menu
 
@@ -24,6 +28,21 @@ class DashboardLayout extends Component {
     this.setState({
       collapsed: !this.state.collapsed
     })
+  }
+
+  handleLogout = (e) => {
+    this.props.logout()
+  }
+
+  confirm = (e) => {
+    console.log(e);
+    message.success('Click on Yes');
+    this.handleLogout()
+  }
+  
+  cancel = (e) => {
+    console.log(e);
+    message.error('Click on No');
   }
 
   render () {
@@ -106,7 +125,13 @@ class DashboardLayout extends Component {
               className='trigger'
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
+              style={{position:'absolute', zIndex: '88888'}}
             />
+            <Row>
+              <Col xs={{ span: 4, offset: 20 }} sm={{ span: 6, offset: 18}} md={{ span: 2, offset: 22 }} lg={{ span: 1, offset: 23 }} xl={{ span: 1, offset: 23 }} xxl={{ span: 1, offset: 23 }}>
+                <Tooltip placement="left" title={'Signout'}><Popconfirm title="Are you sure to signout from this session?" onConfirm={this.confirm} onCancel={this.cancel} okText="Yes" cancelText="No"><Button type="danger" shape="circle" icon="logout" size={'large'} /></Popconfirm></Tooltip>
+              </Col>
+            </Row>
           </Header>
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
             {this.props.children}
