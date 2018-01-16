@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+
+import 'antd/lib/row/style/css'
+import 'antd/lib/col/style/css'
+import { Row, Col } from 'antd'
 
 class Home extends Component {
   render () {
     return (
-      <div className='container text-center' style={{marginTop: '20%'}}>
-        <h1>Coming Soon</h1>
-        <p>Nothing to see here, yet.</p>
+      <div>
+        <Row>
+          <Col span={12} offset={6}>
+            <div className='coming-soon' style={{'textAlign': 'center'}}>
+              <h1>Coming Soon</h1>
+              <p>Nothing to see here, yet.</p>
+            </div>
+          </Col>
+        </Row>
       </div>
     )
   }

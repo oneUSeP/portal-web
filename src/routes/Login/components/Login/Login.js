@@ -2,6 +2,16 @@ import React, { Component, PropTypes } from 'react'
 import LoginForm from './LoginForm'
 import {Link} from 'react-router'
 
+import 'antd/lib/form/style/css'
+import 'antd/lib/icon/style/css'
+import 'antd/lib/input/style/css'
+import 'antd/lib/input-number/style/css'
+import 'antd/lib/button/style/css'
+import 'antd/lib/checkbox/style/css'
+
+import { Form, Icon, Input, Button, Checkbox } from 'antd'
+const FormItem = Form.Item
+
 export default class Login extends Component {
   static propTypes = {
     login: PropTypes.func,
@@ -10,13 +20,9 @@ export default class Login extends Component {
 
   render () {
     const { loading } = this.props.auth
+    const WrappedNormalLoginForm = Form.create()(LoginForm)
     return (
-      <div className='container login-wrapper' style={{ marginTop: '10%' }}>
-        <div className='hr-divider m-t m-b'>
-          <h3 className='hr-divider-content hr-divider-heading'><img src='http://localhost:3000/usep-logo.png' width='100' /></h3>
-        </div>
-        <LoginForm {...this.props} />
-      </div>
+      <WrappedNormalLoginForm {...this.props} />
     )
   }
 }
