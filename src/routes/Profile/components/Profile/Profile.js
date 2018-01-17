@@ -32,7 +32,10 @@ class Profile extends Component {
 
   componentWillMount () {
     let user = this.props.auth.get('user')
-    this.props.getProfile(user.get('username'))
+    let { profile } = this.props
+    if (!profile) {
+      this.props.getProfile(user.get('username'))
+    }
   }
 
   confirm = (e) => {
