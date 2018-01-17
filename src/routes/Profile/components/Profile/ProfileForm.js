@@ -313,64 +313,64 @@ class ProfileForm extends Component {
               <Divider dashed>.</Divider>
               <Col xs={{ span: 23, offset: 1 }} lg={{ span: 11, offset: 1 }}>
                 <h3 style={{textAlign: 'center'}}>Residence/Present Address</h3>
-                <FormItem {...formItemLayout} label='Surname'>
-                  {getFieldDecorator('lastName', {
+                <FormItem {...formItemLayout} label='Residence'>
+                  {getFieldDecorator('resAddress', {
                     rules: [{
                       required: true,
-                      message: 'Please input your surname'
+                      message: 'Please input your address'
                     }]
                   })(
-                    <Input disabled name='lastName' onChange={e => { this.onChange(e) }} placeholder='Please input your surname' />
+                    <Input name='resAddress' onChange={e => { this.onChange(e) }} placeholder='Please input your address' />
                   )}
                 </FormItem>
-                <FormItem {...formItemLayout} label='Given name'>
-                  {getFieldDecorator('firstName', {
+                <FormItem {...formItemLayout} label='Street'>
+                  {getFieldDecorator('resStreet', {
                     rules: [{
                       required: true,
-                      message: 'Please input your name'
+                      message: 'Please input your street'
                     }]
                   })(
-                    <Input disabled placeholder='Please input your name' />
+                    <Input name='resStreet' onChange={e => { this.onChange(e) }} placeholder='Please input your street' />
                   )}
                 </FormItem>
-                <FormItem {...formItemLayout} label='Middle Name'>
-                  {getFieldDecorator('middleName', {
+                <FormItem {...formItemLayout} label='Barangay'>
+                  {getFieldDecorator('resBarangay', {
                     rules: [{
                       required: true,
-                      message: 'Please input your middle name'
+                      message: 'Please input your barangay'
                     }]
                   })(
-                    <Input disabled placeholder='Please input your middle name' />
+                    <Input name='resBarangay' onChange={e => { this.onChange(e) }} placeholder='Please input your barangay' />
                   )}
                 </FormItem>
-                <FormItem {...formItemLayout} label='Middle Initial'>
-                  {getFieldDecorator('middleNameInitial', {
+                <FormItem {...formItemLayout} label='Town/City'>
+                  {getFieldDecorator('resTownCity', {
                     rules: [{
                       required: true,
-                      message: 'Please input your middle name initial'
+                      message: 'Please input your city'
                     }]
                   })(
-                    <Input disabled placeholder='Please input your middle name initial' />
+                    <Input name='resTownCity' onChange={e => { this.onChange(e) }} placeholder='Please input your city' />
                   )}
                 </FormItem>
-                <FormItem {...formItemLayout} label='Extension'>
-                  {getFieldDecorator('extName')(
-                    <Input placeholder='Please input your extension name' />
-                  )}
-                </FormItem>
-                <FormItem {...formItemLayout} label='Birthdate'>
-                  {getFieldDecorator('dateOfBirth', config)(
-                    <DatePicker format='YYYY-MM-DD' onChange={this.onChangeDate} />
-                  )}
-                </FormItem>
-                <FormItem {...formItemLayout} label='Birthplace'>
-                  {getFieldDecorator('placeOfBirth', {
+                <FormItem {...formItemLayout} label='Province'>
+                  {getFieldDecorator('resProvince', {
                     rules: [{
                       required: true,
-                      message: 'Please input birth place'
+                      message: 'Please input your province'
                     }]
                   })(
-                    <Input placeholder='Please input birth place' />
+                    <Input name='resProvince' onChange={e => { this.onChange(e) }} placeholder='Please input your province' />
+                  )}
+                </FormItem>
+                <FormItem {...formItemLayout} label='Zip Code'>
+                  {getFieldDecorator('resZipCode', {
+                    rules: [{
+                      required: true,
+                      message: 'Please input your zip code'
+                    }]
+                  })(
+                    <Input name='resZipCode' onChange={e => { this.onChange(e) }} placeholder='Please input your zip code' />
                   )}
                 </FormItem>
               </Col>

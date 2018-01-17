@@ -110,6 +110,30 @@ class Profile extends Component {
           religionId: Form.createFormField({
             ...props,
             value: profile ? profile.get('ReligionID') : ''
+          }),
+          resAddress: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Res_Address') : ''
+          }),
+          resStreet: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Res_Street') : ''
+          }),
+          resBarangay: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Res_Barangay') : ''
+          }),
+          resTownCity: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Res_TownCity') : ''
+          }),
+          resZipCode: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Res_ZipCode') : ''
+          }),
+          resProvince: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Res_Province') : ''
           })
         }
       },
