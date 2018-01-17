@@ -57,7 +57,7 @@ class Profile extends Component {
             style={{ width: '100%' }}
             cover={fetchingProfile ? (<div className='example'>
             <Spin />
-          </div>) : (<img alt='example' src={profile ? 'data:image/png;base64, ' + profile.get('StudentPicture') : 'http://localhost:3000/usep-logo.png'} />)}
+          </div>) : (<img alt='example' src={profile ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} />)}
             actions={[<Icon type={fetchingProfile ? 'loading' : 'setting'} />, <Tooltip placement="bottom" title={'Edit your information'}><Icon type={fetchingProfile ? 'loading' : 'edit'} /></Tooltip>, <Icon type={fetchingProfile ? 'loading' : 'ellipsis'} />]}>
             <Meta
               avatar={<Avatar style={{ backgroundColor: '#f56a00', verticalAlign: 'middle' }} size='large' >{profile ? profile.get('FirstName').charAt(0) : 'Empty'}</Avatar>}

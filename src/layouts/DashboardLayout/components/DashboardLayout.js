@@ -15,13 +15,18 @@ import 'antd/lib/popconfirm/style/css'
 import 'antd/lib/message/style/css'
 import './style.css'
 
-import { Layout, Menu, Icon, Avatar, Row, Col, Button, Tooltip, Popconfirm, message } from 'antd'
+import { Layout, Menu, Icon, Avatar, Badge, Row, Col, Button, Tooltip, Popconfirm, message, Dropdown } from 'antd'
 const { Header, Sider, Content } = Layout
 const { SubMenu } = Menu
 
 class DashboardLayout extends Component {
   state = {
     collapsed: true
+  }
+
+  componentWillMount () {
+    let user = this.props.auth.get('user')
+    this.props.getProfile(user.get('username'))
   }
 
   toggle = () => {
@@ -35,18 +40,60 @@ class DashboardLayout extends Component {
   }
 
   confirm = (e) => {
-    console.log(e);
-    message.success('Click on Yes');
+    console.log(e)
+    message.success('Click on Yes')
     this.handleLogout()
   }
-  
+
   cancel = (e) => {
-    console.log(e);
-    message.error('Click on No');
+    console.log(e)
+    message.error('Click on No')
   }
 
   render () {
     let userRole = this.props.user.get('role')
+    let { profile, fetchingProfile } = this.props
+    if (profile) {
+      var image = profile.get('StudentPicture')
+    }
+    const menu = (
+      <Menu>
+      {userRole == 'student'
+        ? <NavLink className='ant-dropdown-menu-item' activeClassName='ant-dropdown-menu-item-active ant-dropdown-menu-item-selected' key='6' to='/dashboard/me'>
+          <Icon type='profile' />
+          <span style={{paddingLeft: '.5em'}}>Profile</span>
+        </NavLink>
+        : null}
+        {userRole == 'student'
+        ? <NavLink className='ant-dropdown-menu-item' activeClassName='ant-dropdown-menu-item-active ant-dropdown-menu-item-selected' key='7' to='/dashboard/profpic'>
+          <Icon type='picture' />
+          <span style={{paddingLeft: '.5em'}}>Profile Picture</span>
+        </NavLink>
+        : null}
+        {userRole == 'student'
+        ? <NavLink className='ant-dropdown-menu-item' activeClassName='ant-dropdown-menu-item-active ant-dropdown-menu-item-selected' key='8' to='/dashboard/changepass'>
+          <Icon type='lock' />
+          <span style={{paddingLeft: '.5em'}}>Change Password</span>
+        </NavLink>
+        : null}
+        {userRole == 'student'
+        ? <NavLink className='ant-dropdown-menu-item' activeClassName='ant-dropdown-menu-item-active ant-dropdown-menu-item-selected' key='9' to='/dashboard/changeemail'>
+          <Icon type='mail' />
+          <span style={{paddingLeft: '.5em'}}>Change Email</span>
+        </NavLink>
+        : null}
+        {userRole == 'student'
+        ? <NavLink className='ant-dropdown-menu-item' activeClassName='ant-dropdown-menu-item-active ant-dropdown-menu-item-selected' key='10' to='/dashboard/settings'>
+            <Icon type='setting' />
+            <span style={{paddingLeft: '.5em'}}>Settings</span>
+          </NavLink>
+        : null}
+        <Popconfirm title='Are you sure to signout from this session?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><NavLink className='ant-dropdown-menu-item' activeClassName='ant-dropdown-menu-item-active ant-dropdown-menu-item-selected' key='11' to='/dashboard/downloads'>
+          <Icon type='logout' />
+          <span style={{paddingLeft: '.5em'}}>Logout</span>
+        </NavLink></Popconfirm>
+      </Menu>
+    )
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <LoadingBar style={{position: 'fixed', top: 0, left: 0, backgroundColor: '#800000', zIndex: 9999, height: 5}} />
@@ -58,56 +105,24 @@ class DashboardLayout extends Component {
             <img style={{width: this.state.collapsed ? '100%' : '50%'}} src='http://localhost:3000/usep-logo.png' />
           </div></Link>
           <Menu theme='dark' mode='inline' defaultSelectedKeys={['1']}>
-          <SubMenu key="sub1" title={<span><Icon type="user" /><span>Profile</span></span>}>
-          {userRole == 'student'
-            ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='1' to='/dashboard/me'>
-                <Icon type='profile' />
-                <span>Basic Information</span>
-              </NavLink>
-            : null}
-          {userRole == 'student'
-          ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='2' to='/dashboard/profpic'>
-              <Icon type='picture' />
-              <span>Profile Picture</span>
-            </NavLink>
-          : null}
-          {userRole == 'student'
-          ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='3' to='/dashboard/changepass'>
-              <Icon type='lock' />
-              <span>Change Password</span>
-            </NavLink>
-          : null}
-          {userRole == 'student'
-          ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='4' to='/dashboard/changeemail'>
-              <Icon type='mail' />
-              <span>Change Email</span>
-            </NavLink>
-          : null}
-          {userRole == 'student'
-          ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='5' to='/dashboard/settings'>
-              <Icon type='setting' />
-              <span>Settings</span>
-            </NavLink>
-          : null}
-          </SubMenu>
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='6' to='/dashboard/grades'>
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='1' to='/dashboard/grades'>
               <Icon type='book' />
               <span>Grades</span>
             </NavLink> : null}
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='7' to='/dashboard/evaluation'>
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='2' to='/dashboard/evaluation'>
               <Icon type='dot-chart' />
               <span>Evaluation</span>
             </NavLink> : null}
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='8' to='/dashboard/advising'>
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='3' to='/dashboard/advising'>
               <Icon type='exception' />
               <span>Advising</span>
             </NavLink> : null}
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='9' to='/dashboard/accoutabilities'>
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='4' to='/dashboard/accoutabilities'>
               <Icon type='calculator' />
               <span>Accountabilites</span>
             </NavLink> : null}
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='10' to='/dashboard/downloads'>
-              <Icon type="cloud-download-o" />
+            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='5' to='/dashboard/downloads'>
+              <Icon type='cloud-download-o' />
               <span>Downloads</span>
             </NavLink> : null}
             {userRole == 'admin'
@@ -116,7 +131,6 @@ class DashboardLayout extends Component {
                 <span>Accounts</span>
               </NavLink>
             : null}
-            
           </Menu>
         </Sider>
         <Layout>
@@ -125,11 +139,13 @@ class DashboardLayout extends Component {
               className='trigger'
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
-              style={{position:'absolute', zIndex: '88888'}}
+              style={{position: 'absolute', zIndex: '88888'}}
             />
             <Row>
-              <Col xs={{ span: 4, offset: 20 }} sm={{ span: 6, offset: 18}} md={{ span: 2, offset: 22 }} lg={{ span: 1, offset: 23 }} xl={{ span: 1, offset: 23 }} xxl={{ span: 1, offset: 23 }}>
-                <Tooltip placement="left" title={'Signout'}><Popconfirm title="Are you sure to signout from this session?" onConfirm={this.confirm} onCancel={this.cancel} okText="Yes" cancelText="No"><Button type="danger" shape="circle" icon="logout" size={'large'} /></Popconfirm></Tooltip>
+              <Col xs={{ span: 5, offset: 19 }} sm={{ span: 6, offset: 18}} md={{ span: 2, offset: 22 }} lg={{ span: 2, offset: 22 }} xl={{ span: 1, offset: 23 }} xxl={{ span: 1, offset: 23 }}>
+                <Dropdown overlay={menu} placement='bottomCenter'><span>
+                <Badge dot><Avatar shape="circle" size='large' src={profile ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} /></Badge>
+              </span></Dropdown>
               </Col>
             </Row>
           </Header>
