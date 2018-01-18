@@ -55,14 +55,12 @@ class ProfileForm extends Component {
       bloodType: '',
       father: '',
       fatherOccupation: '',
-      fatherIncome: '',
       mother: '',
       motherOccupation: '',
-      motherIncome: '',
       emergencyContact: '',
-      emergencyRelation: '',
       emergencyAddress: '',
-      emergencyTelNo: ''
+      emergencyMobileNo: '',
+      checkSameAs: false
     }
   }
 
@@ -114,6 +112,31 @@ class ProfileForm extends Component {
     })
   }
 
+  handleSameAs = (e) => {
+    if (e.target.checked) {
+      this.setState({
+        checkSameAs: e.target.checked,
+        permAddress: this.state.resAddress,
+        permStreet: this.state.resStreet,
+        permBarangay: this.state.resBarangay,
+        permTownCity: this.state.resTownCity,
+        permZipCode: this.state.resZipCode,
+        permProvince: this.state.resProvince
+      }, () => {
+        this.props.form.validateFields(['resAddress',
+          'resStreet',
+          'resBarangay',
+          'resTownCity',
+          'resZipCode',
+          'resProvince'], { force: true })
+      })
+    } else {
+      this.setState({
+        checkSameAs: e.target.checked
+      })
+    }
+  }
+
   render () {
     console.log(this.state)
     const { getFieldDecorator } = this.props.form
@@ -134,7 +157,7 @@ class ProfileForm extends Component {
                       message: 'Please input your surname'
                     }]
                   })(
-                    <Input disabled name='lastName' onChange={e => { this.onChange(e) }} placeholder='Please input your surname' />
+                    <Input name='lastName' onChange={e => { this.onChange(e) }} disabled name='lastName' onChange={e => { this.onChange(e) }} placeholder='Please input your surname' />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Given name'>
@@ -144,7 +167,7 @@ class ProfileForm extends Component {
                       message: 'Please input your name'
                     }]
                   })(
-                    <Input disabled placeholder='Please input your name' />
+                    <Input name='firstName' onChange={e => { this.onChange(e) }} disabled placeholder='Please input your name' />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Middle Name'>
@@ -154,7 +177,7 @@ class ProfileForm extends Component {
                       message: 'Please input your middle name'
                     }]
                   })(
-                    <Input disabled placeholder='Please input your middle name' />
+                    <Input name='middleName' onChange={e => { this.onChange(e) }} disabled placeholder='Please input your middle name' />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Middle Initial'>
@@ -164,12 +187,12 @@ class ProfileForm extends Component {
                       message: 'Please input your middle name initial'
                     }]
                   })(
-                    <Input disabled placeholder='Please input your middle name initial' />
+                    <Input name='middleNameInitial' onChange={e => { this.onChange(e) }} disabled placeholder='Please input your middle name initial' />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Extension'>
                   {getFieldDecorator('extName')(
-                    <Input placeholder='Please input your extension name' />
+                    <Input name='extName' onChange={e => { this.onChange(e) }} placeholder='Please input your extension name' />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Birthdate'>
@@ -184,7 +207,7 @@ class ProfileForm extends Component {
                       message: 'Please input birth place'
                     }]
                   })(
-                    <Input placeholder='Please input birth place' />
+                    <Input name='placeOfBirth' onChange={e => { this.onChange(e) }} placeholder='Please input birth place' />
                   )}
                 </FormItem>
               </Col>
@@ -310,74 +333,229 @@ class ProfileForm extends Component {
                   )}
                 </FormItem>
               </Col>
-              <Divider dashed>.</Divider>
+            </Row>
+          </Panel>
+          <Panel header={'RESIDENCE INFORMATION'} key='2'>
+            <Row>
               <Col xs={{ span: 23, offset: 1 }} lg={{ span: 11, offset: 1 }}>
-                <h3 style={{textAlign: 'center'}}>Residence/Present Address</h3>
-                <FormItem {...formItemLayout} label='Residence'>
-                  {getFieldDecorator('resAddress', {
+              <h3 style={{textAlign: 'center'}}>Present Address</h3>
+              <FormItem {...formItemLayout} label='Residence'>
+                {getFieldDecorator('resAddress', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your address'
+                  }]
+                })(
+                  <Input name='resAddress' onChange={e => { this.onChange(e) }} placeholder='Please input your address' />
+                )}
+              </FormItem>
+              <FormItem {...formItemLayout} label='Street'>
+                {getFieldDecorator('resStreet', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your street'
+                  }]
+                })(
+                  <Input name='resStreet' onChange={e => { this.onChange(e) }} placeholder='Please input your street' />
+                )}
+              </FormItem>
+              <FormItem {...formItemLayout} label='Barangay'>
+                {getFieldDecorator('resBarangay', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your barangay'
+                  }]
+                })(
+                  <Input name='resBarangay' onChange={e => { this.onChange(e) }} placeholder='Please input your barangay' />
+                )}
+              </FormItem>
+              <FormItem {...formItemLayout} label='Town/City'>
+                {getFieldDecorator('resTownCity', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your city'
+                  }]
+                })(
+                  <Input name='resTownCity' onChange={e => { this.onChange(e) }} placeholder='Please input your city' />
+                )}
+              </FormItem>
+              <FormItem {...formItemLayout} label='Province'>
+                {getFieldDecorator('resProvince', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your province'
+                  }]
+                })(
+                  <Input name='resProvince' onChange={e => { this.onChange(e) }} placeholder='Please input your province' />
+                )}
+              </FormItem>
+              <FormItem {...formItemLayout} label='Zip Code'>
+                {getFieldDecorator('resZipCode', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your zip code'
+                  }]
+                })(
+                  <Input name='resZipCode' onChange={e => { this.onChange(e) }} placeholder='Please input your zip code' />
+                )}
+              </FormItem>
+            </Col>
+            <Col xs={{ span: 23, offset: 1 }} lg={{ span: 11, offset: 1 }}>
+              <h3 style={{textAlign: 'center'}}>Permanent Address</h3>
+              <FormItem wrapperCol={{ span: 16, offset: 8 }}>
+                <Checkbox
+                  value={this.state.checkSameAs}
+                  onChange={this.handleSameAs}
+                >
+                  Same as Present Address
+                </Checkbox>
+              </FormItem>
+              <FormItem {...formItemLayout} label='Residence'>
+                {getFieldDecorator('permAddress', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your address'
+                  }]
+                })(
+                  <Input name='permAddress' onChange={e => { this.onChange(e) }} placeholder='Please input your address' />
+                )}
+              </FormItem>
+              <FormItem {...formItemLayout} label='Street'>
+                {getFieldDecorator('permStreet', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your street'
+                  }]
+                })(
+                  <Input name='permStreet' onChange={e => { this.onChange(e) }} placeholder='Please input your street' />
+                )}
+              </FormItem>
+              <FormItem {...formItemLayout} label='Barangay'>
+                {getFieldDecorator('permBarangay', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your barangay'
+                  }]
+                })(
+                  <Input name='permBarangay' onChange={e => { this.onChange(e) }} placeholder='Please input your barangay' />
+                )}
+              </FormItem>
+              <FormItem {...formItemLayout} label='Town/City'>
+                {getFieldDecorator('permTownCity', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your city'
+                  }]
+                })(
+                  <Input name='permTownCity' onChange={e => { this.onChange(e) }} placeholder='Please input your city' />
+                )}
+              </FormItem>
+              <FormItem {...formItemLayout} label='Province'>
+                {getFieldDecorator('permProvince', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your province'
+                  }]
+                })(
+                  <Input name='permProvince' onChange={e => { this.onChange(e) }} placeholder='Please input your province' />
+                )}
+              </FormItem>
+              <FormItem {...formItemLayout} label='Zip Code'>
+                {getFieldDecorator('permZipCode', {
+                  rules: [{
+                    required: true,
+                    message: 'Please input your zip code'
+                  }]
+                })(
+                  <Input name='permZipCode' onChange={e => { this.onChange(e) }} placeholder='Please input your zip code' />
+                )}
+              </FormItem>
+            </Col>
+            </Row>
+          </Panel>
+          <Panel header='FAMILY BACKGROUND' key='3'>
+            <Row>
+              <Col xs={{ span: 23, offset: 1 }} lg={{ span: 11, offset: 1 }}>
+                <FormItem {...formItemLayout} label={'Father\'s Name'}>
+                  {getFieldDecorator('father', {
                     rules: [{
                       required: true,
-                      message: 'Please input your address'
+                      message: 'Please input your father\'s name'
                     }]
                   })(
-                    <Input name='resAddress' onChange={e => { this.onChange(e) }} placeholder='Please input your address' />
+                    <Input name='father' onChange={e => { this.onChange(e) }} placeholder={'Please input your father\'s name'} />
                   )}
                 </FormItem>
-                <FormItem {...formItemLayout} label='Street'>
-                  {getFieldDecorator('resStreet', {
+                <FormItem {...formItemLayout} label={'Father\'s Occupation'}>
+                  {getFieldDecorator('fatherOccupation', {
                     rules: [{
                       required: true,
-                      message: 'Please input your street'
+                      message: 'Please input your father\'s occupation'
                     }]
                   })(
-                    <Input name='resStreet' onChange={e => { this.onChange(e) }} placeholder='Please input your street' />
+                    <Input name='fatherOccupation' onChange={e => { this.onChange(e) }} placeholder={'Please input your father\'s occupation'} />
                   )}
                 </FormItem>
-                <FormItem {...formItemLayout} label='Barangay'>
-                  {getFieldDecorator('resBarangay', {
+                <Divider />
+                <FormItem {...formItemLayout} label={'Mother\'s Name'}>
+                  {getFieldDecorator('mother', {
                     rules: [{
                       required: true,
-                      message: 'Please input your barangay'
+                      message: 'Please input your mother\'s name'
                     }]
                   })(
-                    <Input name='resBarangay' onChange={e => { this.onChange(e) }} placeholder='Please input your barangay' />
+                    <Input name='mother' onChange={e => { this.onChange(e) }} placeholder={'Please input your mother\'s name'} />
                   )}
                 </FormItem>
-                <FormItem {...formItemLayout} label='Town/City'>
-                  {getFieldDecorator('resTownCity', {
+                <FormItem {...formItemLayout} label={'Mother\'s Occupation'}>
+                  {getFieldDecorator('motherOccupation', {
                     rules: [{
                       required: true,
-                      message: 'Please input your city'
+                      message: 'Please input your mother\'s occupation'
                     }]
                   })(
-                    <Input name='resTownCity' onChange={e => { this.onChange(e) }} placeholder='Please input your city' />
+                    <Input name='motherOccupation' onChange={e => { this.onChange(e) }} placeholder={'Please input your mother\'s occupation'} />
                   )}
                 </FormItem>
-                <FormItem {...formItemLayout} label='Province'>
-                  {getFieldDecorator('resProvince', {
+              </Col>
+              <Col xs={{ span: 23, offset: 1 }} lg={{ span: 11, offset: 1 }}>
+                <h3 style={{textAlign: 'center'}}>Emergency Contact Person</h3>
+                <FormItem {...formItemLayout} label={'Contact Person'}>
+                  {getFieldDecorator('emergencyContact', {
                     rules: [{
                       required: true,
-                      message: 'Please input your province'
+                      message: 'Please input name to contact'
                     }]
                   })(
-                    <Input name='resProvince' onChange={e => { this.onChange(e) }} placeholder='Please input your province' />
+                    <Input name='emergencyContact' onChange={e => { this.onChange(e) }} placeholder={'Please input name to contact'} />
                   )}
                 </FormItem>
-                <FormItem {...formItemLayout} label='Zip Code'>
-                  {getFieldDecorator('resZipCode', {
+                <FormItem {...formItemLayout} label={'Address'}>
+                  {getFieldDecorator('emergencyAddress', {
                     rules: [{
                       required: true,
-                      message: 'Please input your zip code'
+                      message: 'Please input your contact\'s information'
                     }]
                   })(
-                    <Input name='resZipCode' onChange={e => { this.onChange(e) }} placeholder='Please input your zip code' />
+                    <Input name='emergencyAddress' onChange={e => { this.onChange(e) }} placeholder={'Please input your contact\'s information'} />
+                  )}
+                </FormItem>
+                <FormItem
+                  {...formItemLayout}
+                  label='Mobile No.'
+                >
+                  {getFieldDecorator('emergencyMobileNo',
+                    {
+                      rules: [{
+                        required: true,
+                        message: 'Please input your contact\'s information'
+                      }]
+                    })(
+                    <Input name='emergencyMobileNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} placeholder={'Please input your contact\'s mobile number'} />
                   )}
                 </FormItem>
               </Col>
             </Row>
-          </Panel>
-          <Panel header='FAMILY BACKGROUND' key='2'>
-            WEW
           </Panel>
         </Collapse>
 

@@ -11,6 +11,7 @@ import 'antd/lib/message/style/css'
 import './styles.css'
 
 import { Form, Row, Col, Card, Icon, Avatar, Spin, Popover, Button, Tooltip, Popconfirm, message } from 'antd'
+const ButtonGroup = Button.Group
 const { Meta } = Card
 
 import toUpper from 'upper-case'
@@ -19,7 +20,8 @@ import moment from 'moment'
 
 class Profile extends Component {
   state = {
-    visible: false
+    visible: false,
+    isEditing: false
   }
 
   hide = () => {
@@ -134,6 +136,58 @@ class Profile extends Component {
           resProvince: Form.createFormField({
             ...props,
             value: profile ? profile.get('Res_Province') : ''
+          }),
+          permAddress: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Perm_Address') : ''
+          }),
+          permStreet: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Perm_Street') : ''
+          }),
+          permBarangay: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Perm_Barangay') : ''
+          }),
+          permTownCity: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Perm_TownCity') : ''
+          }),
+          permZipCode: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Perm_ZipCode') : ''
+          }),
+          permProvince: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Perm_Province') : ''
+          }),
+          father: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Father') : ''
+          }),
+          fatherOccupation: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Father_Occupation') : ''
+          }),
+          mother: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Mother') : ''
+          }),
+          motherOccupation: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Mother_Occupation') : ''
+          }),
+          emergencyContact: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Emergency_Contact') : ''
+          }),
+          emergencyAddress: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Emergency_Address') : ''
+          }),
+          emergencyMobileNo: Form.createFormField({
+            ...props,
+            value: profile ? profile.get('Emergency_MobileNo') : ''
           })
         }
       },
@@ -146,10 +200,16 @@ class Profile extends Component {
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 7, offset: 0 }} lg={{ span: 6, offset: 0 }} xl={{ span: 5, offset: 0 }}>
           <Card loading={fetchingProfile}
             style={{ width: '100%' }}
-            cover={fetchingProfile ? (<div className='example'>
-            <Spin />
-          </div>) : (<img alt='example' src={profile ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} />)}
-            actions={[<Icon type={fetchingProfile ? 'loading' : 'setting'} />, <Tooltip placement='bottom' title={'Edit your information'}><Icon type={fetchingProfile ? 'loading' : 'edit'} /></Tooltip>, <Icon type={fetchingProfile ? 'loading' : 'ellipsis'} />]}>
+            cover={fetchingProfile 
+            ? (<div className='example'><Spin /></div>)
+            : (<img alt='example' src={profile ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} />)}
+            actions={
+            !this.state.isEditing
+            ? [<Icon type={fetchingProfile ? 'loading' : 'setting'} />, <Tooltip placement='bottom' title={'Edit your information'}><Icon type={fetchingProfile ? 'loading' : 'edit'} style={{ fontSize: '25', color: '#08c' }} onClick={e => { this.setState({ isEditing: true }) }} /></Tooltip>, <Icon type={fetchingProfile ? 'loading' : 'ellipsis'} />]
+            : [<ButtonGroup>
+                  <Button type='danger' icon='close' shape={'circle'} size='large' style={{ fontSize: '22' }} onClick={e => { this.setState({isEditing: false}) }} />
+                  <Popconfirm title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><Button onClick={this.hide} shape='circle' style={{ fontSize: '22' }} type='primary' icon='save' size='large' /></Popconfirm>
+                </ButtonGroup>]}> 
             <Meta
               // avatar={<Avatar style={{ backgroundColor: '#f56a00', verticalAlign: 'middle' }} size='large' >{profile ? profile.get('FirstName').charAt(0) : 'Empty'}</Avatar>}
               title={profile ? toUpper(profile.get('LastName')) + ', ' + profile.get('FirstName') + ' ' + profile.get('MiddleName') : 'Empty'}
@@ -158,9 +218,7 @@ class Profile extends Component {
           </Card>
         </Col>
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 16, offset: 1 }} lg={{ span: 17, offset: 1 }} xl={{ span: 18, offset: 1 }}>
-          <Card extra={<Popconfirm title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><Button onClick={this.hide} shape='circle' type='primary' icon='save' size='default' /></Popconfirm>} style={{ width: '100%' }}>
-            <WrappedForm {...this.props} />
-          </Card>
+        <WrappedForm {...this.props} />
         </Col>
       </Row>
     )
