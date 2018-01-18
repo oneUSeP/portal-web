@@ -32,7 +32,7 @@ class Profile extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    let {profile} = nextProps
+    let {profile, creatingProfileSuccess} = nextProps
     if (profile) {
       this.setState({profile: {
         studentNo: profile.get('StudentNo'),
@@ -74,6 +74,13 @@ class Profile extends Component {
         emergencyMobileNo: profile.get('Emergency_MobileNo'),
         studentPicture: profile.get('StudentPicture')
       }})
+    }
+    if (creatingProfileSuccess) {
+      this.setState({isEditing: false})
+      message.success('Profile update success!')
+      let user = this.props.auth.get('user')
+      let { profile } = this.props
+      this.props.getProfile(user.get('username'))
     }
   }
 
@@ -239,6 +246,14 @@ class Profile extends Component {
           }),
           sameAs: Form.createFormField({
             ...props
+          }),
+          height: Form.createFormField({
+            ...props,
+            value: data ? data.height : ''
+          }),
+          weight: Form.createFormField({
+            ...props,
+            value: data ? data.weight : ''
           })
         }
       },
@@ -250,6 +265,7 @@ class Profile extends Component {
     })(ProfileForm)
     return (
       <Row>
+      <Spin spinning={this.props.creatingProfile} tip="Updating...">
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 7, offset: 0 }} lg={{ span: 6, offset: 0 }} xl={{ span: 5, offset: 0 }}>
           <Card loading={fetchingProfile}
             style={{ width: '100%' }}
@@ -272,6 +288,7 @@ class Profile extends Component {
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 16, offset: 1 }} lg={{ span: 17, offset: 1 }} xl={{ span: 18, offset: 1 }}>
         {WrappedForm ? <Spin spinning={fetchingProfile} tip='Loading...'><WrappedForm data={this.state.profile != null ? this.state.profile : null} isEditing={this.state.isEditing} {...this.props} /></Spin> : null}
         </Col>
+      </Spin>
       </Row>
     )
   }

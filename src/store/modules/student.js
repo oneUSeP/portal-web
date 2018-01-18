@@ -168,6 +168,8 @@ actionHandlers[ GET_STUDENTS_FAIL ] = (state, action) => {
 actionHandlers[ GET_STUDENT ] = state => {
   return state.merge({
     fetchingProfile: true,
+    creatingProfile: false,
+    creatingProfileSuccess: false,
     fetchingProfileSuccess: false,
     fetchProfileError: null
   })
@@ -197,6 +199,7 @@ actionHandlers[ GET_STUDENT_FAIL ] = (state, action) => {
 const initialState = Immutable.fromJS({
   profile: null,
   profiles: null,
+  creatingProfile: false,
   createProfileError: false,
   creatingProfileSuccess: false,
   fetchingProfiles: false,

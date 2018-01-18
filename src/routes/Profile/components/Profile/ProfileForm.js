@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { Form, Input, Button, Checkbox, Row, Col, DatePicker, Select, Collapse, Divider, Popconfirm } from 'antd'
+import { Form, Input, Button, Checkbox, Row, Col, DatePicker, Select, Collapse, Divider, Popconfirm, message, InputNumber } from 'antd'
 const FormItem = Form.Item
 const Option = Select.Option
 const Panel = Collapse.Panel
@@ -15,6 +15,8 @@ import 'antd/lib/date-picker/style/css'
 import 'antd/lib/select/style/css'
 import 'antd/lib/Collapse/style/css'
 import 'antd/lib/popconfirm/style/css'
+import 'antd/lib/message/style/css'
+import 'antd/lib/input-number/style/css'
 
 import 'antd/lib/divider/style/css'
 
@@ -44,20 +46,20 @@ class ProfileForm extends Component {
       resStreet: data ? data.resStreet : '',
       resBarangay: data ? data.resBarangay : '',
       resTownCity: data ? data.resTownCity : '',
-      resZipCode: data ? data.resZipCode : '',
+      resZipCode: data ? data.resZipCode : 0,
       resProvince: data ? data.resProvince : '',
       permAddress: data ? data.permAddress : '',
       permStreet: data ? data.permStreet : '',
       permBarangay: data ? data.permBarangay : '',
       permTownCity: data ? data.permTownCity : '',
-      permZipCode: data ? data.permZipCode : '',
+      permZipCode: data ? data.permZipCode : 0,
       permProvince: data ? data.permProvince : '',
       email: data ? data.email : '',
       telNo: data ? data.telNo : '',
       mobileNo: data ? data.mobileNo : '',
       bloodType: data ? data.bloodType : '',
-      height: data ? data.height : '',
-      weight: data ? data.weight : '',
+      height: data ? data.height : 0,
+      weight: data ? data.weight : 0,
       father: data ? data.father : '',
       fatherOccupation: data ? data.fatherOccupation : '',
       mother: data ? data.mother : '',
@@ -65,7 +67,8 @@ class ProfileForm extends Component {
       emergencyContact: data ? data.emergencyContact : '',
       emergencyAddress: data ? data.emergencyAddress : '',
       emergencyMobileNo: data ? data.emergencyMobileNo : '',
-      studentPicture: data ? data.studentPicture : ''
+      studentPicture: data ? data.studentPicture : '',
+      isLoading: false
     }
   }
 
@@ -77,22 +80,61 @@ class ProfileForm extends Component {
   }
 
   confirm = (e) => {
-    // console.log(e)
     this.check()
-    message.success('Click on Yes')
   }
 
   cancel = (e) => {
-    // console.log(e)
-    message.error('Click on No')
+    console.log(e)
   }
 
   check = () => {
-    console.log('fired!')
+    let {data} = this.props
     this.props.form.validateFields(
       (err) => {
         if (!err) {
-          console.info('success')
+          this.setState({
+            studentNo: data ? data.studentNo : '',
+            lastName: data ? data.lastName : '',
+            firstName: data ? data.firstName : '',
+            middleName: data ? data.middleName : '',
+            middleNameInitial: data ? data.middleNameInitial.charAt(0) : '',
+            extName: data ? data.extName : '',
+            dateOfBirth: data ? moment.utc(data.dateOfBirth).format('YYYY-MM-DD') : moment.utc().format('YYYY-MM-DD'),
+            placeOfBirth: data ? data.placeOfBirth : '',
+            gender: data ? data.gender : '',
+            civilStatusId: data ? data.civilStatusId : '1',
+            religionId: data ? data.religionId : '',
+            nationalityId: data ? data.nationalityId : '',
+            resAddress: data ? data.resAddress : '',
+            resStreet: data ? data.resStreet : '',
+            resBarangay: data ? data.resBarangay : '',
+            resTownCity: data ? data.resTownCity : '',
+            resZipCode: data ? data.resZipCode : '',
+            resProvince: data ? data.resProvince : '',
+            permAddress: data ? data.permAddress : '',
+            permStreet: data ? data.permStreet : '',
+            permBarangay: data ? data.permBarangay : '',
+            permTownCity: data ? data.permTownCity : '',
+            permZipCode: data ? data.permZipCode : '',
+            permProvince: data ? data.permProvince : '',
+            email: data ? data.email : '',
+            telNo: data ? data.telNo : '',
+            mobileNo: data ? data.mobileNo : '',
+            bloodType: data ? data.bloodType : '',
+            height: data ? data.height : '',
+            weight: data ? data.weight : '',
+            father: data ? data.father : '',
+            fatherOccupation: data ? data.fatherOccupation : '',
+            mother: data ? data.mother : '',
+            motherOccupation: data ? data.motherOccupation : '',
+            emergencyContact: data ? data.emergencyContact : '',
+            emergencyAddress: data ? data.emergencyAddress : '',
+            emergencyMobileNo: data ? data.emergencyMobileNo : '',
+            studentPicture: data ? data.studentPicture : '', isLoading: true })
+          const data = this.state
+          this.props.updateProfile(data)
+        } else {
+          message.error('All required fields must be filled out.')
         }
       },
     )
@@ -136,28 +178,43 @@ class ProfileForm extends Component {
     })
   }
 
+  handleInputNumber = (string, value) => {
+    this.setState({
+      string: value
+    })
+  }
+
   handleSameAs = (e) => {
+    var residence = this.props.form.getFieldsValue(['resAddress', 'resStreet', 'resBarangay', 'resTownCity', 'resZipCode', 'resProvince'])
     if (e.target.checked) {
-      let residence = this.props.form.getFieldsValue(['resAddress', 'resStreet', 'resBarangay', 'resTownCity', 'resZipCode', 'resProvince'])
-      this.props.form.setFields({
-        permAddress: {
-          value: residence.resAddress
-        },
-        permStreet: {
-          value: residence.resStreet
-        },
-        permBarangay: {
-          value: residence.resBarangay
-        },
-        permTownCity: {
-          value: residence.resTownCity
-        },
-        permZipCode: {
-          value: residence.resZipCode
-        },
-        permProvince: {
-          value: residence.resProvince
-        }
+      this.setState({
+        permAddress: residence.resAddress,
+        permStreet: residence.resStreet,
+        permBarangay: residence.resBarangay,
+        permTownCity: residence.resTownCity,
+        permZipCode: residence.resZipCode,
+        permProvince: residence.resProvince
+      }, () => {
+        this.props.form.setFields({
+          permAddress: {
+            value: residence.resAddress
+          },
+          permStreet: {
+            value: residence.resStreet
+          },
+          permBarangay: {
+            value: residence.resBarangay
+          },
+          permTownCity: {
+            value: residence.resTownCity
+          },
+          permZipCode: {
+            value: residence.resZipCode
+          },
+          permProvince: {
+            value: residence.resProvince
+          }
+        })
       })
     }
   }
@@ -165,7 +222,7 @@ class ProfileForm extends Component {
   handleReset = () => {
     this.props.form.resetFields(
       ['sameAs',
-        'permAddperms',
+        'permAddress',
         'permStreet',
         'permBarangay',
         'permTownCity',
@@ -210,12 +267,7 @@ class ProfileForm extends Component {
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Middle Name'>
-                  {getFieldDecorator('middleName', {
-                    rules: [{
-                      required: true,
-                      message: 'Please input your middle name'
-                    }]
-                  })(
+                  {getFieldDecorator('middleName')(
                     <Input disabled={!this.props.isEditing} name='middleName' onChange={e => { this.onChange(e) }} disabled placeholder='Please input your middle name' />
                   )}
                 </FormItem>
@@ -247,6 +299,17 @@ class ProfileForm extends Component {
                     }]
                   })(
                     <Input disabled={!this.props.isEditing} name='placeOfBirth' onChange={e => { this.onChange(e) }} placeholder='Please input birth place' />
+                  )}
+                </FormItem>
+                <FormItem {...formItemLayout} label='Height (cm)'>
+                  {getFieldDecorator('height', {
+                    rules: [{
+                      required: true,
+                      message: 'Please input height',
+                      type: 'integer'
+                    }]
+                  })(
+                    <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumber(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                   )}
                 </FormItem>
               </Col>
@@ -381,6 +444,17 @@ class ProfileForm extends Component {
                     </Select>
                   )}
                 </FormItem>
+                <FormItem {...formItemLayout} label='Weight (grams)'>
+                  {getFieldDecorator('weight', {
+                    rules: [{
+                      required: true,
+                      message: 'Please input weight',
+                      type: 'integer'
+                    }]
+                  })(
+                    <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumber(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
+                  )}
+                </FormItem>
               </Col>
             </Row>
           </Panel>
@@ -442,10 +516,11 @@ class ProfileForm extends Component {
                 {getFieldDecorator('resZipCode', {
                   rules: [{
                     required: true,
-                    message: 'Please input your zip code'
+                    message: 'Please input your zip code and it must be a number',
+                    type: 'integer'
                   }]
                 })(
-                  <Input disabled={!this.props.isEditing} name='resZipCode' onChange={e => { this.onChange(e) }} placeholder='Please input your zip code' />
+                  <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumber(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                 )}
               </FormItem>
             </Col>
@@ -522,11 +597,12 @@ class ProfileForm extends Component {
                 {getFieldDecorator('permZipCode', {
                   rules: [{
                     required: true,
-                    message: 'Please input your zip code'
+                    message: 'Please input your zip code and it must be a number',
+                    type: 'integer'
                   }],
                   initialValue: this.props.data ? this.props.data.permZipCode : ''
                 })(
-                  <Input disabled={!this.props.isEditing} name='permZipCode' onChange={e => { this.onChange(e) }} placeholder='Please input your zip code' />
+                  <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumber(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                 )}
               </FormItem>
             </Col>

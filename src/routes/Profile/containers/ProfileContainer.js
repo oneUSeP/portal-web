@@ -20,6 +20,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.student.get('profile'),
   profiles: state.student.get('profiles'),
+  creatingProfile: state.student.get('creatingProfile'),
   createProfileError: state.student.get('createProfileError'),
   creatingProfileSuccess: state.student.get('creatingProfileSuccess'),
   fetchingProfiles: state.student.get('fetchingProfiles'),
