@@ -178,9 +178,24 @@ class ProfileForm extends Component {
     })
   }
 
-  handleInputNumber = (string, value) => {
+  handleInputNumberWeight = (value) => {
     this.setState({
-      string: value
+      weight: value
+    })
+  }
+  handleInputNumberHeight = (value) => {
+    this.setState({
+      height: value
+    })
+  }
+  handleInputNumbeResZip = (value) => {
+    this.setState({
+      resZipCode: value
+    })
+  }
+  handleInputNumberPermZip = (value) => {
+    this.setState({
+      permZipCode: value
     })
   }
 
@@ -309,7 +324,7 @@ class ProfileForm extends Component {
                       type: 'integer'
                     }]
                   })(
-                    <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumber(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
+                    <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberHeight(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                   )}
                 </FormItem>
               </Col>
@@ -452,7 +467,7 @@ class ProfileForm extends Component {
                       type: 'integer'
                     }]
                   })(
-                    <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumber(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
+                    <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberWeight(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                   )}
                 </FormItem>
               </Col>
@@ -520,7 +535,7 @@ class ProfileForm extends Component {
                     type: 'integer'
                   }]
                 })(
-                  <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumber(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
+                  <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumbeResZip(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                 )}
               </FormItem>
             </Col>
@@ -602,7 +617,7 @@ class ProfileForm extends Component {
                   }],
                   initialValue: this.props.data ? this.props.data.permZipCode : ''
                 })(
-                  <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumber(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
+                  <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberPermZip(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                 )}
               </FormItem>
             </Col>
