@@ -200,7 +200,7 @@ class Profile extends Component {
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 7, offset: 0 }} lg={{ span: 6, offset: 0 }} xl={{ span: 5, offset: 0 }}>
           <Card loading={fetchingProfile}
             style={{ width: '100%' }}
-            cover={fetchingProfile 
+            cover={fetchingProfile
             ? (<div className='example'><Spin /></div>)
             : (<img alt='example' src={profile ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} />)}
             actions={
@@ -209,7 +209,7 @@ class Profile extends Component {
             : [<ButtonGroup>
                   <Button type='danger' icon='close' shape={'circle'} size='large' style={{ fontSize: '22' }} onClick={e => { this.setState({isEditing: false}) }} />
                   <Popconfirm title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><Button onClick={this.hide} shape='circle' style={{ fontSize: '22' }} type='primary' icon='save' size='large' /></Popconfirm>
-                </ButtonGroup>]}> 
+                </ButtonGroup>]}>
             <Meta
               // avatar={<Avatar style={{ backgroundColor: '#f56a00', verticalAlign: 'middle' }} size='large' >{profile ? profile.get('FirstName').charAt(0) : 'Empty'}</Avatar>}
               title={profile ? toUpper(profile.get('LastName')) + ', ' + profile.get('FirstName') + ' ' + profile.get('MiddleName') : 'Empty'}
@@ -218,7 +218,7 @@ class Profile extends Component {
           </Card>
         </Col>
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 16, offset: 1 }} lg={{ span: 17, offset: 1 }} xl={{ span: 18, offset: 1 }}>
-          <WrappedForm isEditing={this.state.isEditing} {...this.props} />
+        <Spin spinning={fetchingProfile} tip="Loading..."><WrappedForm isEditing={this.state.isEditing} {...this.props} /></Spin>
         </Col>
       </Row>
     )
