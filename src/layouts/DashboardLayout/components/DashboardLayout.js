@@ -103,7 +103,7 @@ class DashboardLayout extends Component {
           collapsible
           collapsed={this.state.collapsed}>
           <Link to='/dashboard'><div className='logo' style={{textAlign: 'center', marginBottom: this.state.collapsed ? '1.75em' : '4.5em'}}>
-            <img style={{width: this.state.collapsed ? '100%' : '50%'}} src='http://localhost:3000/usep-logo.png' />
+            <img style={{width: this.state.collapsed ? '100%' : '50%'}} src='http://portal.usep.edu.ph/usep-logo.png' />
           </div></Link>
           <Menu theme='dark' mode='inline' defaultSelectedKeys={['1']}>
             {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='1' to='/dashboard/grades'>

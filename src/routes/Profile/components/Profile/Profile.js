@@ -271,7 +271,7 @@ class Profile extends Component {
             style={{ width: '100%' }}
             cover={fetchingProfile
             ? (<div className='example'><Spin /></div>)
-            : (<img alt='example' src={this.state.profile != null ? 'data:image/png;base64, ' + this.state.profile.studentPicture : 'http://localhost:3000/usep-logo.png'} />)}
+            : (<img alt='example' src={this.state.profile != null ? 'data:image/png;base64, ' + this.state.profile.studentPicture : 'http://portal.usep.edu.ph/usep-logo.png'} />)}
             actions={
             !this.state.isEditing
             ? [<Icon style={{ fontSize: '22px' }} type={fetchingProfile ? 'loading' : 'setting'} />, <Tooltip placement='bottom' title={'Edit your information'}><Icon type={fetchingProfile ? 'loading' : 'edit'} style={{ fontSize: '25px' }} onClick={e => { this.setState({ isEditing: true }) }} /></Tooltip>, <Icon style={{ fontSize: '22px' }} type={fetchingProfile ? 'loading' : 'ellipsis'} />]
