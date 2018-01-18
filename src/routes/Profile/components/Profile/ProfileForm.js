@@ -74,7 +74,6 @@ class ProfileForm extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.isSubmit) {
-      console.log('wew')
       this.check()
     }
   }
@@ -84,7 +83,6 @@ class ProfileForm extends Component {
   }
 
   cancel = (e) => {
-    console.log(e)
   }
 
   check = () => {
@@ -247,7 +245,6 @@ class ProfileForm extends Component {
   }
 
   render () {
-    console.log(this.state)
     const { getFieldDecorator } = this.props.form
     const config = {
       rules: [{ type: 'object', required: true, message: 'Please select date!' }]
@@ -255,8 +252,8 @@ class ProfileForm extends Component {
 
     return (
       <Form>
-        {this.props.isEditing ? (<Row><Col style={{marginTop: '1em', textAlign: 'center'}} xs={{ span: 24, offset: 0 }} lg={{ span: 24, offset: 0 }}><Popconfirm  title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><Button onClick={this.hide} shape='circle' style={{ fontSize: '22px' }} type='primary' icon='save' size='large' /></Popconfirm>
-        </Col></Row>): null}
+        {this.props.isEditing ? (<Row><Col style={{marginTop: '1em', textAlign: 'center'}} xs={{ span: 24, offset: 0 }} lg={{ span: 24, offset: 0 }}><Popconfirm title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><Button onClick={this.hide} shape='circle' style={{ fontSize: '22px' }} type='primary' icon='save' size='large' /></Popconfirm>
+        </Col></Row>) : null}
         <Collapse bordered={false} defaultActiveKey={this.props.isEditing ? ['1', '2', '3'] : ['1']}>
           <Panel header='PERSONAL INFORMATION' key='1'>
             <Row>
