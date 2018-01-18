@@ -13,7 +13,7 @@ class Home extends Component {
             <div className='coming-soon' style={{'textAlign': 'center'}}>
               <h1>Coming Soon</h1>
               <p>Nothing to see here, yet.</p>
-              <p>Update you profile information here. <a href='http://portal.usep.edu.ph/dashboard/me'></a></p>
+              <p>Update you profile information <a href='http://portal.usep.edu.ph/dashboard/me'>here. </a></p>
             </div>
           </Col>
         </Row>
