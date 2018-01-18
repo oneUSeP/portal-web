@@ -205,7 +205,7 @@ class Profile extends Component {
             : (<img alt='example' src={profile ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} />)}
             actions={
             !this.state.isEditing
-            ? [<Icon type={fetchingProfile ? 'loading' : 'setting'} />, <Tooltip placement='bottom' title={'Edit your information'}><Icon type={fetchingProfile ? 'loading' : 'edit'} style={{ fontSize: '25', color: '#08c' }} onClick={e => { this.setState({ isEditing: true }) }} /></Tooltip>, <Icon type={fetchingProfile ? 'loading' : 'ellipsis'} />]
+            ? [<Icon style={{ fontSize: '22' }} type={fetchingProfile ? 'loading' : 'setting'} />, <Tooltip placement='bottom' title={'Edit your information'}><Icon type={fetchingProfile ? 'loading' : 'edit'} style={{ fontSize: '25', color: '#08c' }} onClick={e => { this.setState({ isEditing: true }) }} /></Tooltip>, <Icon style={{ fontSize: '22' }} type={fetchingProfile ? 'loading' : 'ellipsis'} />]
             : [<ButtonGroup>
                   <Button type='danger' icon='close' shape={'circle'} size='large' style={{ fontSize: '22' }} onClick={e => { this.setState({isEditing: false}) }} />
                   <Popconfirm title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><Button onClick={this.hide} shape='circle' style={{ fontSize: '22' }} type='primary' icon='save' size='large' /></Popconfirm>
@@ -218,7 +218,7 @@ class Profile extends Component {
           </Card>
         </Col>
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 16, offset: 1 }} lg={{ span: 17, offset: 1 }} xl={{ span: 18, offset: 1 }}>
-        <WrappedForm {...this.props} />
+          <WrappedForm isEditing={this.state.isEditing} {...this.props} />
         </Col>
       </Row>
     )

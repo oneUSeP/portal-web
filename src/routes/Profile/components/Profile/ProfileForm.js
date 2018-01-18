@@ -146,7 +146,7 @@ class ProfileForm extends Component {
 
     return (
       <Form>
-        <Collapse bordered={false} defaultActiveKey={['1']}>
+        <Collapse bordered={false} defaultActiveKey={this.props.isEditing ? ['1', '2', '3'] : ['1']}>
           <Panel header='PERSONAL INFORMATION' key='1'>
             <Row>
               <Col xs={{ span: 23, offset: 1 }} lg={{ span: 11, offset: 1 }}>
