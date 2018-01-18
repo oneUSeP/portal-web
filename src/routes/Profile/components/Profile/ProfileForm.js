@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, Checkbox, Row, Col, DatePicker, Select, Collapse, Divider } from 'antd'
+import moment from 'moment'
+import { Form, Input, Button, Checkbox, Row, Col, DatePicker, Select, Collapse, Divider, Popconfirm } from 'antd'
 const FormItem = Form.Item
 const Option = Select.Option
 const Panel = Collapse.Panel
@@ -13,6 +14,8 @@ import 'antd/lib/col/style/css'
 import 'antd/lib/date-picker/style/css'
 import 'antd/lib/select/style/css'
 import 'antd/lib/Collapse/style/css'
+import 'antd/lib/popconfirm/style/css'
+
 import 'antd/lib/divider/style/css'
 
 const formItemLayout = {
@@ -23,48 +26,69 @@ const formItemLayout = {
 class ProfileForm extends Component {
   constructor (props) {
     super(props)
-
+    let {data} = props
     this.state = {
-      studentNo: '',
-      lastName: '',
-      firstName: '',
-      middleName: '',
-      middleNameInitial: '',
-      extName: '',
-      dateOfBirth: '',
-      placeOfBirth: '',
-      gender: '',
-      civilStatusId: '',
-      religionId: '',
-      nationalityId: '',
-      resAddress: '',
-      resStreet: '',
-      resBarangay: '',
-      resTownCity: '',
-      resZipCode: '',
-      resProvince: '',
-      permAddress: '',
-      permStreet: '',
-      permBarangay: '',
-      permTownCity: '',
-      permZipCode: '',
-      permProvince: '',
-      email: '',
-      telNo: '',
-      mobileNo: '',
-      bloodType: '',
-      father: '',
-      fatherOccupation: '',
-      mother: '',
-      motherOccupation: '',
-      emergencyContact: '',
-      emergencyAddress: '',
-      emergencyMobileNo: '',
-      checkSameAs: false
+      studentNo: data ? data.studentNo : '',
+      lastName: data ? data.lastName : '',
+      firstName: data ? data.firstName : '',
+      middleName: data ? data.middleName : '',
+      middleNameInitial: data ? data.middleNameInitial.charAt(0) : '',
+      extName: data ? data.extName : '',
+      dateOfBirth: data ? moment.utc(data.dateOfBirth).format('YYYY-MM-DD') : moment.utc().format('YYYY-MM-DD'),
+      placeOfBirth: data ? data.placeOfBirth : '',
+      gender: data ? data.gender : '',
+      civilStatusId: data ? data.civilStatusId : '1',
+      religionId: data ? data.religionId : '',
+      nationalityId: data ? data.nationalityId : '',
+      resAddress: data ? data.resAddress : '',
+      resStreet: data ? data.resStreet : '',
+      resBarangay: data ? data.resBarangay : '',
+      resTownCity: data ? data.resTownCity : '',
+      resZipCode: data ? data.resZipCode : '',
+      resProvince: data ? data.resProvince : '',
+      permAddress: data ? data.permAddress : '',
+      permStreet: data ? data.permStreet : '',
+      permBarangay: data ? data.permBarangay : '',
+      permTownCity: data ? data.permTownCity : '',
+      permZipCode: data ? data.permZipCode : '',
+      permProvince: data ? data.permProvince : '',
+      email: data ? data.email : '',
+      telNo: data ? data.telNo : '',
+      mobileNo: data ? data.mobileNo : '',
+      bloodType: data ? data.bloodType : '',
+      height: data ? data.height : '',
+      weight: data ? data.weight : '',
+      father: data ? data.father : '',
+      fatherOccupation: data ? data.fatherOccupation : '',
+      mother: data ? data.mother : '',
+      motherOccupation: data ? data.motherOccupation : '',
+      emergencyContact: data ? data.emergencyContact : '',
+      emergencyAddress: data ? data.emergencyAddress : '',
+      emergencyMobileNo: data ? data.emergencyMobileNo : '',
+      studentPicture: data ? data.studentPicture : ''
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.isSubmit) {
+      console.log('wew')
+      this.check()
+    }
+  }
+
+  confirm = (e) => {
+    // console.log(e)
+    this.check()
+    message.success('Click on Yes')
+  }
+
+  cancel = (e) => {
+    // console.log(e)
+    message.error('Click on No')
+  }
+
   check = () => {
+    console.log('fired!')
     this.props.form.validateFields(
       (err) => {
         if (!err) {
@@ -114,27 +138,40 @@ class ProfileForm extends Component {
 
   handleSameAs = (e) => {
     if (e.target.checked) {
-      this.setState({
-        checkSameAs: e.target.checked,
-        permAddress: this.state.resAddress,
-        permStreet: this.state.resStreet,
-        permBarangay: this.state.resBarangay,
-        permTownCity: this.state.resTownCity,
-        permZipCode: this.state.resZipCode,
-        permProvince: this.state.resProvince
-      }, () => {
-        this.props.form.validateFields(['resAddress',
-          'resStreet',
-          'resBarangay',
-          'resTownCity',
-          'resZipCode',
-          'resProvince'], { force: true })
-      })
-    } else {
-      this.setState({
-        checkSameAs: e.target.checked
+      let residence = this.props.form.getFieldsValue(['resAddress', 'resStreet', 'resBarangay', 'resTownCity', 'resZipCode', 'resProvince'])
+      this.props.form.setFields({
+        permAddress: {
+          value: residence.resAddress
+        },
+        permStreet: {
+          value: residence.resStreet
+        },
+        permBarangay: {
+          value: residence.resBarangay
+        },
+        permTownCity: {
+          value: residence.resTownCity
+        },
+        permZipCode: {
+          value: residence.resZipCode
+        },
+        permProvince: {
+          value: residence.resProvince
+        }
       })
     }
+  }
+
+  handleReset = () => {
+    this.props.form.resetFields(
+      ['sameAs',
+        'permAddperms',
+        'permStreet',
+        'permBarangay',
+        'permTownCity',
+        'permZipCode',
+        'permProvince']
+    )
   }
 
   render () {
@@ -146,6 +183,8 @@ class ProfileForm extends Component {
 
     return (
       <Form>
+        {this.props.isEditing ? (<Row><Col style={{marginTop: '1em', textAlign: 'center'}} xs={{ span: 24, offset: 0 }} lg={{ span: 24, offset: 0 }}><Popconfirm  title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><Button onClick={this.hide} shape='circle' style={{ fontSize: '22px' }} type='primary' icon='save' size='large' /></Popconfirm>
+        </Col></Row>): null}
         <Collapse bordered={false} defaultActiveKey={this.props.isEditing ? ['1', '2', '3'] : ['1']}>
           <Panel header='PERSONAL INFORMATION' key='1'>
             <Row>
@@ -157,7 +196,7 @@ class ProfileForm extends Component {
                       message: 'Please input your surname'
                     }]
                   })(
-                    <Input name='lastName' onChange={e => { this.onChange(e) }} disabled name='lastName' onChange={e => { this.onChange(e) }} placeholder='Please input your surname' />
+                    <Input disabled={!this.props.isEditing} name='lastName' onChange={e => { this.onChange(e) }} disabled name='lastName' onChange={e => { this.onChange(e) }} placeholder='Please input your surname' />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Given name'>
@@ -167,7 +206,7 @@ class ProfileForm extends Component {
                       message: 'Please input your name'
                     }]
                   })(
-                    <Input name='firstName' onChange={e => { this.onChange(e) }} disabled placeholder='Please input your name' />
+                    <Input disabled={!this.props.isEditing} name='firstName' onChange={e => { this.onChange(e) }} disabled placeholder='Please input your name' />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Middle Name'>
@@ -177,7 +216,7 @@ class ProfileForm extends Component {
                       message: 'Please input your middle name'
                     }]
                   })(
-                    <Input name='middleName' onChange={e => { this.onChange(e) }} disabled placeholder='Please input your middle name' />
+                    <Input disabled={!this.props.isEditing} name='middleName' onChange={e => { this.onChange(e) }} disabled placeholder='Please input your middle name' />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Middle Initial'>
@@ -187,17 +226,17 @@ class ProfileForm extends Component {
                       message: 'Please input your middle name initial'
                     }]
                   })(
-                    <Input name='middleNameInitial' onChange={e => { this.onChange(e) }} disabled placeholder='Please input your middle name initial' />
+                    <Input disabled={!this.props.isEditing} name='middleNameInitial' onChange={e => { this.onChange(e) }} disabled placeholder='Please input your middle name initial' />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Extension'>
                   {getFieldDecorator('extName')(
-                    <Input name='extName' onChange={e => { this.onChange(e) }} placeholder='Please input your extension name' />
+                    <Input disabled={!this.props.isEditing} name='extName' onChange={e => { this.onChange(e) }} placeholder='Please input your extension name' />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Birthdate'>
                   {getFieldDecorator('dateOfBirth', config)(
-                    <DatePicker format='YYYY-MM-DD' onChange={this.onChangeDate} />
+                    <DatePicker disabled={!this.props.isEditing} format='YYYY-MM-DD' onChange={this.onChangeDate} />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Birthplace'>
@@ -207,16 +246,18 @@ class ProfileForm extends Component {
                       message: 'Please input birth place'
                     }]
                   })(
-                    <Input name='placeOfBirth' onChange={e => { this.onChange(e) }} placeholder='Please input birth place' />
+                    <Input disabled={!this.props.isEditing} name='placeOfBirth' onChange={e => { this.onChange(e) }} placeholder='Please input birth place' />
                   )}
                 </FormItem>
               </Col>
               <Col xs={{ span: 23, offset: 1 }} lg={{ span: 11, offset: 1 }}>
                 <FormItem {...formItemLayout} label='Sex'>
                   {getFieldDecorator('gender', {
-                    rules: [{ required: true, message: 'Please select your gender!' }]
+                    rules: [{ required: true, message: 'Please select your gender!' }],
+                    initialValue: this.props.data ? this.props.data.gender : 'M'
                   })(
                     <Select
+                      disabled={!this.props.isEditing}
                       placeholder='Select your sex'
                       onChange={this.handleSelectChangeSex}
                     >
@@ -236,7 +277,7 @@ class ProfileForm extends Component {
                       required: true, message: 'Please input your E-mail!'
                     }]
                   })(
-                    <Input name='email' onChange={e => { this.onChange(e) }} />
+                    <Input disabled={!this.props.isEditing} name='email' onChange={e => { this.onChange(e) }} />
                   )}
                 </FormItem>
                 <FormItem
@@ -244,7 +285,7 @@ class ProfileForm extends Component {
                   label='Telephone'
                 >
                   {getFieldDecorator('telNo')(
-                    <Input name='telNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} />
+                    <Input disabled={!this.props.isEditing} name='telNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} />
                   )}
                 </FormItem>
                 <FormItem
@@ -254,12 +295,16 @@ class ProfileForm extends Component {
                   {getFieldDecorator('mobileNo', {
                     rules: [{ required: true, message: 'Please input your mobile number!' }]
                   })(
-                    <Input name='mobileNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} />
+                    <Input disabled={!this.props.isEditing} name='mobileNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Blood Type'>
-                  {getFieldDecorator('bloodType')(
+                  {getFieldDecorator('bloodType', {
+                    valuePropName: 'value',
+                    initialValue: this.props.data ? this.props.data.bloodType : ''
+                  })(
                     <Select
+                      disabled={!this.props.isEditing}
                       placeholder='Select your type'
                       onChange={this.handleSelectChangeBloodtype}
                     >
@@ -277,10 +322,12 @@ class ProfileForm extends Component {
                 </FormItem>
                 <FormItem {...formItemLayout} label='Civil Status'>
                   {getFieldDecorator('civilStatusId', {
-                    rules: [{ required: true, message: 'Please select your status' }]
+                    rules: [{ required: true, message: 'Please select your status' }],
+                    valuePropName: 'value',
+                    initialValue: this.props.data ? this.props.data.civilStatusId : '1'
                   })(
                     <Select
-                      disabled
+                      disabled={!this.props.isEditing}
                       placeholder='Select your status'
                       onChange={this.handleSelectChangeCivilStatusId}
                     >
@@ -293,10 +340,12 @@ class ProfileForm extends Component {
                 </FormItem>
                 <FormItem {...formItemLayout} label='Religion'>
                   {getFieldDecorator('religionId', {
-                    rules: [{ required: true, message: 'Please select your religion' }]
+                    rules: [{ required: true, message: 'Please select your religion' }],
+                    valuePropName: 'value',
+                    initialValue: this.props.data ? this.props.data.religionId : '1'
                   })(
                     <Select
-                      disabled
+                      disabled={!this.props.isEditing}
                       placeholder='Select your religion'
                       onChange={this.handleSelectChangeReligionId}
                     >
@@ -346,7 +395,7 @@ class ProfileForm extends Component {
                     message: 'Please input your address'
                   }]
                 })(
-                  <Input name='resAddress' onChange={e => { this.onChange(e) }} placeholder='Please input your address' />
+                  <Input disabled={!this.props.isEditing} name='resAddress' onChange={e => { this.onChange(e) }} placeholder='Please input your address' />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Street'>
@@ -356,7 +405,7 @@ class ProfileForm extends Component {
                     message: 'Please input your street'
                   }]
                 })(
-                  <Input name='resStreet' onChange={e => { this.onChange(e) }} placeholder='Please input your street' />
+                  <Input disabled={!this.props.isEditing} name='resStreet' onChange={e => { this.onChange(e) }} placeholder='Please input your street' />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Barangay'>
@@ -366,7 +415,7 @@ class ProfileForm extends Component {
                     message: 'Please input your barangay'
                   }]
                 })(
-                  <Input name='resBarangay' onChange={e => { this.onChange(e) }} placeholder='Please input your barangay' />
+                  <Input disabled={!this.props.isEditing} name='resBarangay' onChange={e => { this.onChange(e) }} placeholder='Please input your barangay' />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Town/City'>
@@ -376,7 +425,7 @@ class ProfileForm extends Component {
                     message: 'Please input your city'
                   }]
                 })(
-                  <Input name='resTownCity' onChange={e => { this.onChange(e) }} placeholder='Please input your city' />
+                  <Input disabled={!this.props.isEditing} name='resTownCity' onChange={e => { this.onChange(e) }} placeholder='Please input your city' />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Province'>
@@ -386,7 +435,7 @@ class ProfileForm extends Component {
                     message: 'Please input your province'
                   }]
                 })(
-                  <Input name='resProvince' onChange={e => { this.onChange(e) }} placeholder='Please input your province' />
+                  <Input disabled={!this.props.isEditing} name='resProvince' onChange={e => { this.onChange(e) }} placeholder='Please input your province' />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Zip Code'>
@@ -396,19 +445,24 @@ class ProfileForm extends Component {
                     message: 'Please input your zip code'
                   }]
                 })(
-                  <Input name='resZipCode' onChange={e => { this.onChange(e) }} placeholder='Please input your zip code' />
+                  <Input disabled={!this.props.isEditing} name='resZipCode' onChange={e => { this.onChange(e) }} placeholder='Please input your zip code' />
                 )}
               </FormItem>
             </Col>
             <Col xs={{ span: 23, offset: 1 }} lg={{ span: 11, offset: 1 }}>
               <h3 style={{textAlign: 'center'}}>Permanent Address</h3>
-              <FormItem wrapperCol={{ span: 16, offset: 8 }}>
-                <Checkbox
-                  value={this.state.checkSameAs}
-                  onChange={this.handleSameAs}
-                >
+              <FormItem {...formItemLayout} label={<Button disabled={!this.props.isEditing} type='ghost' shape='circle' icon='reload' onClick={this.handleReset} />}>
+                {getFieldDecorator('sameAs', {
+                  valuePropName: 'checked',
+                  initialValue: false
+                })(
+                  <Checkbox
+                    disabled={!this.props.isEditing}
+                    onChange={this.handleSameAs}
+                  >
                   Same as Present Address
                 </Checkbox>
+                )}
               </FormItem>
               <FormItem {...formItemLayout} label='Residence'>
                 {getFieldDecorator('permAddress', {
@@ -417,7 +471,7 @@ class ProfileForm extends Component {
                     message: 'Please input your address'
                   }]
                 })(
-                  <Input name='permAddress' onChange={e => { this.onChange(e) }} placeholder='Please input your address' />
+                  <Input disabled={!this.props.isEditing} name='permAddress' onChange={e => { this.onChange(e) }} placeholder='Please input your address' />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Street'>
@@ -425,9 +479,10 @@ class ProfileForm extends Component {
                   rules: [{
                     required: true,
                     message: 'Please input your street'
-                  }]
+                  }],
+                  initialValue: this.props.data ? this.props.data.permStreet : ''
                 })(
-                  <Input name='permStreet' onChange={e => { this.onChange(e) }} placeholder='Please input your street' />
+                  <Input disabled={!this.props.isEditing} name='permStreet' onChange={e => { this.onChange(e) }} placeholder='Please input your street' />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Barangay'>
@@ -435,9 +490,10 @@ class ProfileForm extends Component {
                   rules: [{
                     required: true,
                     message: 'Please input your barangay'
-                  }]
+                  }],
+                  initialValue: this.props.data ? this.props.data.permBarangay : ''
                 })(
-                  <Input name='permBarangay' onChange={e => { this.onChange(e) }} placeholder='Please input your barangay' />
+                  <Input disabled={!this.props.isEditing} name='permBarangay' onChange={e => { this.onChange(e) }} placeholder='Please input your barangay' />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Town/City'>
@@ -445,9 +501,10 @@ class ProfileForm extends Component {
                   rules: [{
                     required: true,
                     message: 'Please input your city'
-                  }]
+                  }],
+                  initialValue: this.props.data ? this.props.data.permTownCity : ''
                 })(
-                  <Input name='permTownCity' onChange={e => { this.onChange(e) }} placeholder='Please input your city' />
+                  <Input disabled={!this.props.isEditing} name='permTownCity' onChange={e => { this.onChange(e) }} placeholder='Please input your city' />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Province'>
@@ -455,9 +512,10 @@ class ProfileForm extends Component {
                   rules: [{
                     required: true,
                     message: 'Please input your province'
-                  }]
+                  }],
+                  initialValue: this.props.data ? this.props.data.permProvince : ''
                 })(
-                  <Input name='permProvince' onChange={e => { this.onChange(e) }} placeholder='Please input your province' />
+                  <Input disabled={!this.props.isEditing} name='permProvince' onChange={e => { this.onChange(e) }} placeholder='Please input your province' />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Zip Code'>
@@ -465,9 +523,10 @@ class ProfileForm extends Component {
                   rules: [{
                     required: true,
                     message: 'Please input your zip code'
-                  }]
+                  }],
+                  initialValue: this.props.data ? this.props.data.permZipCode : ''
                 })(
-                  <Input name='permZipCode' onChange={e => { this.onChange(e) }} placeholder='Please input your zip code' />
+                  <Input disabled={!this.props.isEditing} name='permZipCode' onChange={e => { this.onChange(e) }} placeholder='Please input your zip code' />
                 )}
               </FormItem>
             </Col>
@@ -483,7 +542,7 @@ class ProfileForm extends Component {
                       message: 'Please input your father\'s name'
                     }]
                   })(
-                    <Input name='father' onChange={e => { this.onChange(e) }} placeholder={'Please input your father\'s name'} />
+                    <Input disabled={!this.props.isEditing} name='father' onChange={e => { this.onChange(e) }} placeholder={'Please input your father\'s name'} />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label={'Father\'s Occupation'}>
@@ -493,7 +552,7 @@ class ProfileForm extends Component {
                       message: 'Please input your father\'s occupation'
                     }]
                   })(
-                    <Input name='fatherOccupation' onChange={e => { this.onChange(e) }} placeholder={'Please input your father\'s occupation'} />
+                    <Input disabled={!this.props.isEditing} name='fatherOccupation' onChange={e => { this.onChange(e) }} placeholder={'Please input your father\'s occupation'} />
                   )}
                 </FormItem>
                 <Divider />
@@ -504,7 +563,7 @@ class ProfileForm extends Component {
                       message: 'Please input your mother\'s name'
                     }]
                   })(
-                    <Input name='mother' onChange={e => { this.onChange(e) }} placeholder={'Please input your mother\'s name'} />
+                    <Input disabled={!this.props.isEditing} name='mother' onChange={e => { this.onChange(e) }} placeholder={'Please input your mother\'s name'} />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label={'Mother\'s Occupation'}>
@@ -514,7 +573,7 @@ class ProfileForm extends Component {
                       message: 'Please input your mother\'s occupation'
                     }]
                   })(
-                    <Input name='motherOccupation' onChange={e => { this.onChange(e) }} placeholder={'Please input your mother\'s occupation'} />
+                    <Input disabled={!this.props.isEditing} name='motherOccupation' onChange={e => { this.onChange(e) }} placeholder={'Please input your mother\'s occupation'} />
                   )}
                 </FormItem>
               </Col>
@@ -527,7 +586,7 @@ class ProfileForm extends Component {
                       message: 'Please input name to contact'
                     }]
                   })(
-                    <Input name='emergencyContact' onChange={e => { this.onChange(e) }} placeholder={'Please input name to contact'} />
+                    <Input disabled={!this.props.isEditing} name='emergencyContact' onChange={e => { this.onChange(e) }} placeholder={'Please input name to contact'} />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label={'Address'}>
@@ -537,7 +596,7 @@ class ProfileForm extends Component {
                       message: 'Please input your contact\'s information'
                     }]
                   })(
-                    <Input name='emergencyAddress' onChange={e => { this.onChange(e) }} placeholder={'Please input your contact\'s information'} />
+                    <Input disabled={!this.props.isEditing} name='emergencyAddress' onChange={e => { this.onChange(e) }} placeholder={'Please input your contact\'s information'} />
                   )}
                 </FormItem>
                 <FormItem
@@ -551,7 +610,7 @@ class ProfileForm extends Component {
                         message: 'Please input your contact\'s information'
                       }]
                     })(
-                    <Input name='emergencyMobileNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} placeholder={'Please input your contact\'s mobile number'} />
+                    <Input disabled={!this.props.isEditing} name='emergencyMobileNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} placeholder={'Please input your contact\'s mobile number'} />
                   )}
                 </FormItem>
               </Col>

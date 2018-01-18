@@ -17,11 +17,64 @@ const { Meta } = Card
 import toUpper from 'upper-case'
 import ProfileForm from './ProfileForm'
 import moment from 'moment'
+import _ from 'lodash'
 
 class Profile extends Component {
-  state = {
-    visible: false,
-    isEditing: false
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      profile: null,
+      visible: false,
+      isEditing: false,
+      isSubmit: false
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    let {profile} = nextProps
+    if (profile) {
+      this.setState({profile: {
+        studentNo: profile.get('StudentNo'),
+        lastName: profile.get('LastName'),
+        firstName: profile.get('FirstName'),
+        middleName: profile.get('MiddleName'),
+        middleNameInitial: profile.get('MiddleInitial').charAt(0),
+        extName: profile.get('ExtName'),
+        dateOfBirth: moment.utc(profile.get('DateOfBirth')).format('YYYY-MM-DD'),
+        placeOfBirth: profile.get('PlaceOfBirth'),
+        gender: profile.get('Gender'),
+        civilStatusId: profile.get('CivilStatusID'),
+        religionId: profile.get('ReligionID'),
+        nationalityId: profile.get('NationalityID'),
+        resAddress: profile.get('Email'),
+        resStreet: profile.get('Res_Street'),
+        resBarangay: profile.get('Res_Barangay'),
+        resTownCity: profile.get('Res_TownCity'),
+        resZipCode: profile.get('Res_ZipCode'),
+        resProvince: profile.get('Res_Province'),
+        permAddress: profile.get('Perm_Address'),
+        permStreet: profile.get('Perm_Street'),
+        permBarangay: profile.get('Perm_Barangay'),
+        permTownCity: profile.get('Perm_TownCity'),
+        permZipCode: profile.get('Perm_ZipCode'),
+        permProvince: profile.get('Perm_Province'),
+        email: profile.get('Email'),
+        telNo: profile.get('TelNo'),
+        mobileNo: profile.get('MobileNo'),
+        bloodType: profile.get('BloodType'),
+        height: profile.get('Height'),
+        weight: profile.get('Weight'),
+        father: profile.get('Father'),
+        fatherOccupation: profile.get('Father_Occupation'),
+        mother: profile.get('Mother'),
+        motherOccupation: profile.get('Mother_Occupation'),
+        emergencyContact: profile.get('Emergency_Contact'),
+        emergencyAddress: profile.get('Emergency_Address'),
+        emergencyMobileNo: profile.get('Emergency_MobileNo'),
+        studentPicture: profile.get('StudentPicture')
+      }})
+    }
   }
 
   hide = () => {
@@ -37,162 +90,162 @@ class Profile extends Component {
   componentWillMount () {
     let user = this.props.auth.get('user')
     let { profile } = this.props
-    if (!profile) {
-      this.props.getProfile(user.get('username'))
-    }
-  }
-
-  confirm = (e) => {
-    console.log(e)
-    message.success('Click on Yes')
-  }
-
-  cancel = (e) => {
-    console.log(e)
-    message.error('Click on No')
+    this.props.getProfile(user.get('username'))
   }
 
   render () {
-    let { profile, fetchingProfile } = this.props
-    if (profile) {
-      var image = profile.get('StudentPicture')
-      var birthDate = moment.utc(profile.get('DateOfBirth')).format('YYYY-MM-DD')
-    }
+    let { fetchingProfile } = this.props
     const WrappedForm = Form.create({
       mapPropsToFields (props) {
+        let data = props.data
+        let initialValue = false
         return {
           lastName: Form.createFormField({
             ...props,
-            value: profile ? props.profile.get('LastName') : ''
+            value: data ? data.lastName : ''
           }),
           firstName: Form.createFormField({
             ...props,
-            value: profile ? props.profile.get('FirstName') : ''
+            value: data ? data.firstName : ''
           }),
           middleName: Form.createFormField({
             ...props,
-            value: profile ? props.profile.get('MiddleName') : ''
+            value: data ? data.middleName : ''
           }),
           middleNameInitial: Form.createFormField({
             ...props,
-            value: profile ? props.profile.get('MiddleName').charAt(0) : ''
+            value: data ? data.middleNameInitial : ''
           }),
           extName: Form.createFormField({
             ...props,
-            value: profile ? props.profile.get('ExtName') : ''
+            value: data ? data.extName : ''
           }),
           dateOfBirth: Form.createFormField({
             ...props,
-            value: profile ? moment(birthDate) : null
+            value: data ? moment(data.birthDate) : null
           }),
           placeOfBirth: Form.createFormField({
             ...props,
-            value: profile ? profile.get('PlaceOfBirth') : ''
+            value: data ? data.placeOfBirth : ''
           }),
           email: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Email') : ''
+            value: data ? data.email : ''
           }),
           telNo: Form.createFormField({
             ...props,
-            value: profile ? profile.get('TelNo') : ''
+            value: data ? data.telNo : ''
           }),
           mobileNo: Form.createFormField({
             ...props,
-            value: profile ? profile.get('MobileNo') : ''
+            value: data ? data.mobileNo : ''
           }),
           bloodType: Form.createFormField({
             ...props,
-            value: profile ? profile.get('BloodType') : ''
+            value: data ? data.bloodType : ''
           }),
           civilStatusId: Form.createFormField({
             ...props,
-            value: profile ? profile.get('CivilStatusID') : ''
+            value: data ? data.civilStatusId : ''
           }),
           religionId: Form.createFormField({
             ...props,
-            value: profile ? profile.get('ReligionID') : ''
+            value: data ? data.religionId : ''
           }),
           resAddress: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Res_Address') : ''
+            value: data ? data.resAddress : ''
           }),
           resStreet: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Res_Street') : ''
+            value: data ? data.resStreet : ''
           }),
           resBarangay: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Res_Barangay') : ''
+            value: data ? data.resBarangay : ''
           }),
           resTownCity: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Res_TownCity') : ''
+            value: data ? data.resTownCity : ''
           }),
           resZipCode: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Res_ZipCode') : ''
+            value: data ? data.resZipCode : ''
           }),
           resProvince: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Res_Province') : ''
+            value: data ? data.resProvince : ''
           }),
           permAddress: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Perm_Address') : ''
+            value: data ? data.permAddress : ''
           }),
           permStreet: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Perm_Street') : ''
+            value: data ? data.permStreet : '',
+            valuePropName: 'value',
+            initialValue: data ? data.permStreet : ''
           }),
           permBarangay: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Perm_Barangay') : ''
+            value: data ? data.permBarangay : '',
+            valuePropName: 'value',
+            initialValue: data ? data.permBarangay : ''
           }),
           permTownCity: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Perm_TownCity') : ''
+            value: data ? data.permTownCity : '',
+            valuePropName: 'value',
+            initialValue: data ? data.permTownCity : ''
           }),
           permZipCode: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Perm_ZipCode') : ''
+            value: data ? data.permZipCode : '',
+            initialValue: data ? data.permZipCode : ''
           }),
           permProvince: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Perm_Province') : ''
+            value: data ? data.permProvince : '',
+            valuePropName: 'value',
+            initialValue: data ? data.permProvince : ''
           }),
           father: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Father') : ''
+            value: data ? data.father : ''
           }),
           fatherOccupation: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Father_Occupation') : ''
+            value: data ? data.fatherOccupation : ''
           }),
           mother: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Mother') : ''
+            value: data ? data.mother : ''
           }),
           motherOccupation: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Mother_Occupation') : ''
+            value: data ? data.motherOccupation : ''
           }),
           emergencyContact: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Emergency_Contact') : ''
+            value: data ? data.emergencyContact : ''
           }),
           emergencyAddress: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Emergency_Address') : ''
+            value: data ? data.emergencyAddress : ''
           }),
           emergencyMobileNo: Form.createFormField({
             ...props,
-            value: profile ? profile.get('Emergency_MobileNo') : ''
+            value: data ? data.emergencyMobileNo : ''
+          }),
+          sameAs: Form.createFormField({
+            ...props
           })
         }
       },
-      onValuesChange (_, values) {
-        console.log(values)
+      onValuesChange (props, values) {
+        _.mapKeys(values, function(value, key) {
+          console.log(key, value)
+        })
       }
     })(ProfileForm)
     return (
@@ -202,23 +255,22 @@ class Profile extends Component {
             style={{ width: '100%' }}
             cover={fetchingProfile
             ? (<div className='example'><Spin /></div>)
-            : (<img alt='example' src={profile ? 'data:image/png;base64, ' + image : 'http://localhost:3000/usep-logo.png'} />)}
+            : (<img alt='example' src={this.state.profile != null ? 'data:image/png;base64, ' + this.state.profile.studentPicture : 'http://localhost:3000/usep-logo.png'} />)}
             actions={
             !this.state.isEditing
-            ? [<Icon style={{ fontSize: '22' }} type={fetchingProfile ? 'loading' : 'setting'} />, <Tooltip placement='bottom' title={'Edit your information'}><Icon type={fetchingProfile ? 'loading' : 'edit'} style={{ fontSize: '25', color: '#08c' }} onClick={e => { this.setState({ isEditing: true }) }} /></Tooltip>, <Icon style={{ fontSize: '22' }} type={fetchingProfile ? 'loading' : 'ellipsis'} />]
+            ? [<Icon style={{ fontSize: '22px' }} type={fetchingProfile ? 'loading' : 'setting'} />, <Tooltip placement='bottom' title={'Edit your information'}><Icon type={fetchingProfile ? 'loading' : 'edit'} style={{ fontSize: '25px' }} onClick={e => { this.setState({ isEditing: true }) }} /></Tooltip>, <Icon style={{ fontSize: '22px' }} type={fetchingProfile ? 'loading' : 'ellipsis'} />]
             : [<ButtonGroup>
-                  <Button type='danger' icon='close' shape={'circle'} size='large' style={{ fontSize: '22' }} onClick={e => { this.setState({isEditing: false}) }} />
-                  <Popconfirm title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><Button onClick={this.hide} shape='circle' style={{ fontSize: '22' }} type='primary' icon='save' size='large' /></Popconfirm>
+                  <Button type='danger' icon='close' shape={'circle'} size='large' style={{ fontSize: '22px' }} onClick={e => { this.setState({isEditing: false}) }} />
                 </ButtonGroup>]}>
             <Meta
               // avatar={<Avatar style={{ backgroundColor: '#f56a00', verticalAlign: 'middle' }} size='large' >{profile ? profile.get('FirstName').charAt(0) : 'Empty'}</Avatar>}
-              title={profile ? toUpper(profile.get('LastName')) + ', ' + profile.get('FirstName') + ' ' + profile.get('MiddleName') : 'Empty'}
-              description={profile ? profile.get('StudentNo') : 'Empty'}
+              title={this.state.profile != null ? toUpper(this.state.profile.lastName) + ', ' + this.state.profile.firstName + ' ' + this.state.profile.middleName : 'Empty'}
+              description={this.state.profile != null ? this.state.profile.studentNo : 'Empty'}
             />
           </Card>
         </Col>
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 16, offset: 1 }} lg={{ span: 17, offset: 1 }} xl={{ span: 18, offset: 1 }}>
-        <Spin spinning={fetchingProfile} tip="Loading..."><WrappedForm isEditing={this.state.isEditing} {...this.props} /></Spin>
+        {WrappedForm ? <Spin spinning={fetchingProfile} tip='Loading...'><WrappedForm data={this.state.profile != null ? this.state.profile : null} isEditing={this.state.isEditing} {...this.props} /></Spin> : null}
         </Col>
       </Row>
     )

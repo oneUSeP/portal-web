@@ -15,7 +15,7 @@ import 'antd/lib/popconfirm/style/css'
 import 'antd/lib/message/style/css'
 import './style.css'
 
-import { Layout, Menu, Icon, Avatar, Badge, Row, Col, Button, Tooltip, Popconfirm, message, Dropdown } from 'antd'
+import { Layout, Menu, Icon, Avatar, Badge, Row, Col, Button, Tooltip, Popconfirm, message, Dropdown, BackTop } from 'antd'
 const { Header, Sider, Content } = Layout
 const { SubMenu } = Menu
 
@@ -96,6 +96,7 @@ class DashboardLayout extends Component {
     )
     return (
       <Layout style={{ minHeight: '100vh' }}>
+        <BackTop />
         <LoadingBar style={{position: 'fixed', top: 0, left: 0, backgroundColor: '#800000', zIndex: 9999, height: 5}} />
         <Sider
           trigger={null}
