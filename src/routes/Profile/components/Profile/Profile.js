@@ -101,7 +101,6 @@ class Profile extends Component {
   }
 
   render () {
-    console.log(this.state)
     let { fetchingProfile } = this.props
     const WrappedForm = Form.create({
       mapPropsToFields (props) {
@@ -264,7 +263,6 @@ class Profile extends Component {
       },
       onValuesChange (props, values) {
         _.mapKeys(values, function (value, key) {
-          console.log(key, value)
         })
       }
     })(ProfileForm)

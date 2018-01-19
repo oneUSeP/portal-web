@@ -10,10 +10,10 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  accounts: state.student.get('accounts'),
-  fetchingAccount: state.student.get('fetchingAccount'),
-  fetchAccountError: state.student.get('fetchAccountError'),
-  fetchingAccountSuccess: state.student.get('fetchingAccountSuccess')
+  accounts: state.account.get('accounts'),
+  fetchingAccounts: state.account.get('fetchingAccounts'),
+  fetchAccountsError: state.account.get('fetchAccountsError'),
+  fetchingAccountsSuccess: state.account.get('fetchingAccountsSuccess')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Account)

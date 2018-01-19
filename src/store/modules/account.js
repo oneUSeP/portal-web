@@ -11,10 +11,10 @@ export const GET_ACCOUNTS_FAIL = 'api/GET_ACCOUNTS_FAIL'
 // Actions
 // ------------------------------------
 
-export function getAccounts (page = 1, count = 10, filter) {
+export function getAccounts (page = 1, count = 10) {
   return (dispatch, getState) => {
     dispatch(showLoading())
-    let endpoint = `/api/v1/accounts?page=${page}&count=${count}&filter=${filter}`
+    let endpoint = `/api/v1/accounts?page=${page}&count=${count}`
     const { accessToken } = getState().auth.toJS()
     return dispatch({
       [CALL_API]: {

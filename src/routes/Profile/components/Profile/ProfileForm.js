@@ -245,7 +245,6 @@ class ProfileForm extends Component {
   }
 
   render () {
-    console.log(this.state)
     const { getFieldDecorator } = this.props.form
     const config = {
       rules: [{ type: 'object', required: true, message: 'Please select date!' }]
