@@ -319,7 +319,7 @@ class ProfileForm extends Component {
                     rules: [{
                       required: true,
                       message: 'Please input height',
-                      type: 'float'
+                      type: 'number'
                     }]
                   })(
                     <InputNumber min={0}
@@ -463,7 +463,7 @@ class ProfileForm extends Component {
                     rules: [{
                       required: true,
                       message: 'Please input weight',
-                      type: 'float'
+                      type: 'number'
                     }]
                   })(
                     <InputNumber min={0}
