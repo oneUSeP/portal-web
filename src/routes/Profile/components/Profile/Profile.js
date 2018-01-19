@@ -41,7 +41,7 @@ class Profile extends Component {
         middleName: profile.get('MiddleName'),
         middleNameInitial: profile.get('MiddleInitial').charAt(0),
         extName: profile.get('ExtName'),
-        dateOfBirth: moment.utc(profile.get('DateOfBirth')).format('YYYY-MM-DD'),
+        dateOfBirth: profile.get('DateOfBirth'),
         placeOfBirth: profile.get('PlaceOfBirth'),
         gender: profile.get('Gender'),
         civilStatusId: profile.get('CivilStatusID'),
@@ -101,6 +101,7 @@ class Profile extends Component {
   }
 
   render () {
+    console.log(this.state)
     let { fetchingProfile } = this.props
     const WrappedForm = Form.create({
       mapPropsToFields (props) {
@@ -129,7 +130,7 @@ class Profile extends Component {
           }),
           dateOfBirth: Form.createFormField({
             ...props,
-            value: data ? moment(data.birthDate) : null
+            value: data && data.dateOfBirth != null ? moment(moment(data.dateOfBirth)) : null
           }),
           placeOfBirth: Form.createFormField({
             ...props,
@@ -258,14 +259,14 @@ class Profile extends Component {
         }
       },
       onValuesChange (props, values) {
-        _.mapKeys(values, function(value, key) {
+        _.mapKeys(values, function (value, key) {
           console.log(key, value)
         })
       }
     })(ProfileForm)
     return (
       <Row>
-      <Spin spinning={this.props.creatingProfile} tip="Updating...">
+      <Spin spinning={this.props.creatingProfile} tip='Updating...'>
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 7, offset: 0 }} lg={{ span: 6, offset: 0 }} xl={{ span: 5, offset: 0 }}>
           <Card loading={fetchingProfile}
             style={{ width: '100%' }}

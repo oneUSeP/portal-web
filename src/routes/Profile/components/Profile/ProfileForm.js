@@ -13,7 +13,7 @@ import 'antd/lib/row/style/css'
 import 'antd/lib/col/style/css'
 import 'antd/lib/date-picker/style/css'
 import 'antd/lib/select/style/css'
-import 'antd/lib/Collapse/style/css'
+import 'antd/lib/collapse/style/css'
 import 'antd/lib/popconfirm/style/css'
 import 'antd/lib/message/style/css'
 import 'antd/lib/input-number/style/css'
@@ -245,6 +245,7 @@ class ProfileForm extends Component {
   }
 
   render () {
+    console.log(this.state)
     const { getFieldDecorator } = this.props.form
     const config = {
       rules: [{ type: 'object', required: true, message: 'Please select date!' }]
