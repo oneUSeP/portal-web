@@ -40,12 +40,12 @@ class DashboardLayout extends Component {
   }
 
   confirm = (e) => {
-    message.success('Click on Yes')
+    message.success('You logged out!')
     this.handleLogout()
   }
 
   cancel = (e) => {
-    message.error('Click on No')
+    message.error('You chose to stay.')
   }
 
   render () {
