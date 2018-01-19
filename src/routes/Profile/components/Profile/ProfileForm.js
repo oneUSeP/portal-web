@@ -559,7 +559,8 @@ class ProfileForm extends Component {
                   rules: [{
                     required: true,
                     message: 'Please input your address'
-                  }]
+                  }],
+                  initialValue: this.props.data ? this.props.data.permAddress : ''
                 })(
                   <Input disabled={!this.props.isEditing} name='permAddress' onChange={e => { this.onChange(e) }} placeholder='Please input your address' />
                 )}
