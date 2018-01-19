@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import LoadingBar from 'react-redux-loading-bar'
 import activeComponent from 'react-router-active-component'
 import { Link } from 'react-router'
+import _ from 'lodash'
 
 const NavLink = activeComponent('li')
 
@@ -104,6 +105,22 @@ class DashboardLayout extends Component {
             <img style={{width: this.state.collapsed ? '100%' : '50%'}} src='http://portal.usep.edu.ph/usep-logo.png' />
           </div></Link>
           <Menu theme='dark' mode='inline' defaultSelectedKeys={['1']}>
+            {userRole == 'admin'
+              ? <SubMenu key='sub1' title={<span><Icon type='code-o' /><span>Admin Corner</span></span>}>
+                <NavLink style={{paddingLeft: '48px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='11' to='/dashboard/accounts'>
+                  <Icon type='team' />
+                  <span>Accounts</span>
+                </NavLink>
+                <NavLink style={{paddingLeft: '48px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='12' to='/dashboard/reports'>
+                  <Icon type='printer' />
+                  <span>Reports</span>
+                </NavLink>
+                <NavLink style={{paddingLeft: '48px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='13' to='/dashboard/settings'>
+                  <Icon type='setting' />
+                  <span>Settings</span>
+                </NavLink>
+              </SubMenu>
+              : null}
             {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='1' to='/dashboard/grades'>
               <Icon type='book' />
               <span>Grades</span>
@@ -124,12 +141,6 @@ class DashboardLayout extends Component {
               <Icon type='cloud-download-o' />
               <span>Downloads</span>
             </NavLink> : null}
-            {userRole == 'admin'
-            ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='11' to='/dashboard/accounts'>
-                <Icon type='team' />
-                <span>Accounts</span>
-              </NavLink>
-            : null}
           </Menu>
         </Sider>
         <Layout>

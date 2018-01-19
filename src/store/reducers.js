@@ -4,7 +4,7 @@ import { loadingBarReducer } from 'react-redux-loading-bar'
 import app from './modules/app'
 import auth from './modules/auth'
 import student from './modules/student'
-// import admission from './modules/admission'
+import account from './modules/account'
 // import ayterm from './modules/ayterm'
 // import campus from './modules/campus'
 // import civilstatus from './modules/civilstatus'
@@ -21,6 +21,7 @@ export const makeRootReducer = (asyncReducers) => {
     app,
     auth,
     student,
+    account,
     loadingBar: loadingBarReducer,
     ...asyncReducers
   })

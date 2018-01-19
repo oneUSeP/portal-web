@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+
+import { Table } from 'antd'
 
 class Account extends Component {
+
+  componentWillMount () {
+    this.props.getAccounts(1, 99)
+  }
+
   render () {
     return (
       <div className='container-fluid container-fluid-spacious' style={{marginTop: '0%'}} >
