@@ -47,7 +47,7 @@ class Profile extends Component {
         civilStatusId: profile.get('CivilStatusID'),
         religionId: profile.get('ReligionID'),
         nationalityId: profile.get('NationalityID'),
-        resAddress: profile.get('Email'),
+        resAddress: profile.get('Res_Address'),
         resStreet: profile.get('Res_Street'),
         resBarangay: profile.get('Res_Barangay'),
         resTownCity: profile.get('Res_TownCity'),
@@ -152,14 +152,18 @@ class Profile extends Component {
             ...props,
             value: data ? data.bloodType : ''
           }),
-          civilStatusId: Form.createFormField({
-            ...props,
-            value: data ? data.civilStatusId : ''
-          }),
-          religionId: Form.createFormField({
-            ...props,
-            value: data ? data.religionId : ''
-          }),
+          // civilStatusId: Form.createFormField({
+          //   ...props,
+          //   value: data ? parseInt(data.civilStatusId) : parseInt('1'),
+          //   valuePropName: 'value',
+          //   defaultValue: data ? parseInt(data.civilStatusId) : parseInt('1')
+          // }),
+          // religionId: Form.createFormField({
+          //   ...props,
+          //   // value: data ? parseInt(data.religionId) : parseInt('1'),
+          //   valuePropName: 'value',
+          //   defaultValue: data ? parseInt(data.religionId) : parseInt('1')
+          // }),
           resAddress: Form.createFormField({
             ...props,
             value: data ? data.resAddress : ''

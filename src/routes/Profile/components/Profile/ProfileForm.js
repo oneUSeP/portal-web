@@ -132,7 +132,7 @@ class ProfileForm extends Component {
           const data = this.state
           this.props.updateProfile(data)
         } else {
-          message.error('All required fields must be filled out.')
+          message.error('All required fields must be filled out properly.')
         }
       },
     )
@@ -319,10 +319,11 @@ class ProfileForm extends Component {
                     rules: [{
                       required: true,
                       message: 'Please input height',
-                      type: 'integer'
+                      type: 'float'
                     }]
                   })(
-                    <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberHeight(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
+                    <InputNumber min={0}
+                      max={10000} disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberHeight(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                   )}
                 </FormItem>
               </Col>
@@ -369,7 +370,7 @@ class ProfileForm extends Component {
                   label='Mobile'
                 >
                   {getFieldDecorator('mobileNo', {
-                    rules: [{ required: true, message: 'Please input your mobile number!' }]
+                    rules: [{ required: true, message: 'Please input your valid mobile number!', pattern: '(\\+?\\d{2}?\\s?\\d{3}\\s?\\d{3}\\s?\\d{4})|([0]\\d{3}\\s?\\d{3}\\s?\\d{4})' }]
                   })(
                     <Input disabled={!this.props.isEditing} name='mobileNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} />
                   )}
@@ -400,7 +401,7 @@ class ProfileForm extends Component {
                   {getFieldDecorator('civilStatusId', {
                     rules: [{ required: true, message: 'Please select your status' }],
                     valuePropName: 'value',
-                    initialValue: this.props.data ? this.props.data.civilStatusId : '1'
+                    initialValue: this.props.data ? '' + this.props.data.civilStatusId : '1'
                   })(
                     <Select
                       disabled={!this.props.isEditing}
@@ -418,7 +419,7 @@ class ProfileForm extends Component {
                   {getFieldDecorator('religionId', {
                     rules: [{ required: true, message: 'Please select your religion' }],
                     valuePropName: 'value',
-                    initialValue: this.props.data ? this.props.data.religionId : '1'
+                    initialValue: this.props.data ? '' + this.props.data.religionId : '1'
                   })(
                     <Select
                       disabled={!this.props.isEditing}
@@ -457,15 +458,16 @@ class ProfileForm extends Component {
                     </Select>
                   )}
                 </FormItem>
-                <FormItem {...formItemLayout} label='Weight (grams)'>
+                <FormItem {...formItemLayout} label='Weight (k/g)'>
                   {getFieldDecorator('weight', {
                     rules: [{
                       required: true,
                       message: 'Please input weight',
-                      type: 'integer'
+                      type: 'float'
                     }]
                   })(
-                    <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberWeight(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
+                    <InputNumber min={0}
+                      max={10000} disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberWeight(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                   )}
                 </FormItem>
               </Col>
@@ -533,25 +535,26 @@ class ProfileForm extends Component {
                     type: 'integer'
                   }]
                 })(
-                  <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumbeResZip(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
+                  <InputNumber min={0}
+                    max={10000} disabled={!this.props.isEditing} onChange={e => { this.handleInputNumbeResZip(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                 )}
               </FormItem>
             </Col>
             <Col xs={{ span: 23, offset: 1 }} lg={{ span: 11, offset: 1 }}>
               <h3 style={{textAlign: 'center'}}>Permanent Address</h3>
-              <FormItem {...formItemLayout} label={<Button disabled={!this.props.isEditing} type='ghost' shape='circle' icon='reload' onClick={this.handleReset} />}>
-                {getFieldDecorator('sameAs', {
-                  valuePropName: 'checked',
-                  initialValue: false
-                })(
-                  <Checkbox
-                    disabled={!this.props.isEditing}
-                    onChange={this.handleSameAs}
-                  >
-                  Same as Present Address
-                </Checkbox>
-                )}
-              </FormItem>
+              {this.props.isEditing ? (<FormItem {...formItemLayout} label={<Button disabled={!this.props.isEditing} type='ghost' shape='circle' icon='reload' onClick={this.handleReset} />}>
+              {getFieldDecorator('sameAs', {
+                valuePropName: 'checked',
+                initialValue: false
+              })(
+                <Checkbox
+                  disabled={!this.props.isEditing}
+                  onChange={this.handleSameAs}
+                >
+                Same as Present Address
+              </Checkbox>
+              )}
+            </FormItem>) : null}
               <FormItem {...formItemLayout} label='Residence'>
                 {getFieldDecorator('permAddress', {
                   rules: [{
@@ -615,7 +618,8 @@ class ProfileForm extends Component {
                   }],
                   initialValue: this.props.data ? this.props.data.permZipCode : ''
                 })(
-                  <InputNumber disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberPermZip(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
+                  <InputNumber min={0}
+                    max={10000} disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberPermZip(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                 )}
               </FormItem>
             </Col>
@@ -696,7 +700,7 @@ class ProfileForm extends Component {
                     {
                       rules: [{
                         required: true,
-                        message: 'Please input your contact\'s information'
+                        message: 'Please input your valid contact\'s information', pattern: '(\\+?\\d{2}?\\s?\\d{3}\\s?\\d{3}\\s?\\d{4})|([0]\\d{3}\\s?\\d{3}\\s?\\d{4})'
                       }]
                     })(
                     <Input disabled={!this.props.isEditing} name='emergencyMobileNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} placeholder={'Please input your contact\'s mobile number'} />
