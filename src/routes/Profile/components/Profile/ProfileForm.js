@@ -706,7 +706,7 @@ class ProfileForm extends Component {
                   )}
                 </FormItem>
                 {this.props.isEditing
-                  ? <FormItem labelCol={{ span: 16 }} wrapperCol={{ span: 8 }} label={<Popconfirm title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'>
+                  ? <FormItem labelCol={{ span: 20 }} wrapperCol={{ span: 4 }} label={<Popconfirm title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'>
                       <ButtonGroup>
                         <Button type='danger' icon='close' size='large' onClick={e => { this.props.cancelEdit() }} >Cancel</Button>
                         <Button type='primary' onClick={this.hide} icon='save' size={'large'}>Save</Button></ButtonGroup>
