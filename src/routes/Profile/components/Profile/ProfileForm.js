@@ -4,6 +4,7 @@ import { Form, Input, Button, Checkbox, Row, Col, DatePicker, Select, Collapse, 
 const FormItem = Form.Item
 const Option = Select.Option
 const Panel = Collapse.Panel
+const ButtonGroup = Button.Group
 
 import 'antd/lib/form/style/css'
 import 'antd/lib/input/style/css'
@@ -252,8 +253,6 @@ class ProfileForm extends Component {
 
     return (
       <Form>
-        {this.props.isEditing ? (<Row><Col style={{marginTop: '1em', textAlign: 'center'}} xs={{ span: 24, offset: 0 }} lg={{ span: 24, offset: 0 }}><Popconfirm title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><Button onClick={this.hide} shape='circle' style={{ fontSize: '22px' }} type='primary' icon='save' size='large' /></Popconfirm>
-        </Col></Row>) : null}
         <Collapse bordered={false} defaultActiveKey={this.props.isEditing ? ['1', '2', '3'] : ['1']}>
           <Panel header='PERSONAL INFORMATION' key='1'>
             <Row>
@@ -706,6 +705,14 @@ class ProfileForm extends Component {
                     <Input disabled={!this.props.isEditing} name='emergencyMobileNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} placeholder={'Please input your contact\'s mobile number'} />
                   )}
                 </FormItem>
+                {this.props.isEditing
+                  ? <FormItem labelCol={{ span: 16 }} wrapperCol={{ span: 8 }} label={<Popconfirm title='Are you sure to save this changes?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'>
+                      <ButtonGroup>
+                        <Button type='danger' icon='close' size='large' onClick={e => { this.props.cancelEdit() }} >Cancel</Button>
+                        <Button type='primary' onClick={this.hide} icon='save' size={'large'}>Save</Button></ButtonGroup>
+                      </Popconfirm>}>
+                    </FormItem>
+                  : null}
               </Col>
             </Row>
           </Panel>

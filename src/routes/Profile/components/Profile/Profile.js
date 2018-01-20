@@ -289,7 +289,7 @@ class Profile extends Component {
           </Card>
         </Col>
         <Col xs={{ span: 24, offset: 0 }} sm={{ span: 7, offset: 1 }} md={{ span: 16, offset: 1 }} lg={{ span: 17, offset: 1 }} xl={{ span: 18, offset: 1 }}>
-        {WrappedForm ? <Spin spinning={fetchingProfile} tip='Loading...'><WrappedForm data={this.state.profile != null ? this.state.profile : null} isEditing={this.state.isEditing} {...this.props} /></Spin> : null}
+        {WrappedForm ? <Spin spinning={fetchingProfile} tip='Loading...'><WrappedForm data={this.state.profile != null ? this.state.profile : null} isEditing={this.state.isEditing} cancelEdit={e => { this.setState({isEditing: false}) }} {...this.props} /></Spin> : null}
         </Col>
       </Spin>
       </Row>
