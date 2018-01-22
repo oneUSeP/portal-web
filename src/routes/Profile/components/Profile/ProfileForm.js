@@ -376,7 +376,7 @@ class ProfileForm extends Component {
                 <FormItem {...formItemLayout} label='Blood Type'>
                   {getFieldDecorator('bloodType', {
                     valuePropName: 'value',
-                    initialValue: this.props.data ? this.props.data.bloodType : ''
+                    initialValue: this.props.data ? '' + this.props.data.bloodType : ''
                   })(
                     <Select
                       disabled={!this.props.isEditing}

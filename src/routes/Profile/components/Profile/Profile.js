@@ -147,10 +147,10 @@ class Profile extends Component {
             ...props,
             value: data ? data.mobileNo : ''
           }),
-          bloodType: Form.createFormField({
-            ...props,
-            value: data ? data.bloodType : ''
-          }),
+          // bloodType: Form.createFormField({
+          //   ...props,
+          //   value: data ? data.bloodType : ''
+          // }),
           // civilStatusId: Form.createFormField({
           //   ...props,
           //   value: data ? parseInt(data.civilStatusId) : parseInt('1'),
