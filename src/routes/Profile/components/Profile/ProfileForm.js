@@ -359,8 +359,12 @@ class ProfileForm extends Component {
                   {...formItemLayout}
                   label='Telephone'
                 >
-                  {getFieldDecorator('telNo')(
-                    <Input disabled={!this.props.isEditing} name='telNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} />
+                  {getFieldDecorator('telNo', {
+                    rules: [{
+                      pattern: '^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$'
+                    }]
+                  })(
+                    <Input disabled={!this.props.isEditing} name='telNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} placeholder='(123) 456-7890' />
                   )}
                 </FormItem>
                 <FormItem
@@ -370,7 +374,7 @@ class ProfileForm extends Component {
                   {getFieldDecorator('mobileNo', {
                     rules: [{ required: true, message: 'Please input your valid mobile number!', pattern: '(\\+?\\d{2}?\\s?\\d{3}\\s?\\d{3}\\s?\\d{4})|([0]\\d{3}\\s?\\d{3}\\s?\\d{4})' }]
                   })(
-                    <Input disabled={!this.props.isEditing} name='mobileNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} />
+                    <Input disabled={!this.props.isEditing} name='mobileNo' onChange={e => { this.onChange(e) }} style={{ width: '100%' }} placeholder='09 or +63' />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Blood Type'>
