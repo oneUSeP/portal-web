@@ -9,10 +9,10 @@
 }
 
 .box-gallery {
-  opacity: .5;
-  background-color: '#000'
+  opacity: .7;
 }
 
 .box-gallery .box-panel .bg-tile .bg-img img {
   background-size: cover;
+  background-color: #000;
 }

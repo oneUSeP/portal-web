@@ -34,13 +34,13 @@ export default class Login extends Component {
     return (
       <div>
         <BackgroundSlideshow images={[
-        'http://localhost:3000/img/logo/cas.svg',
-        'http://localhost:3000/img/logo/ce.svg',
-        'http://localhost:3000/img/logo/ct.svg',
-        'http://localhost:3000/img/logo/cgbe.svg',
-        'http://localhost:3000/img/logo/educ-logo.svg',
-        'http://localhost:3000/img/logo/ic.svg',
-        'http://localhost:3000/img/logo/saec-logo.svg' ]} />
+        'http://portal.usep.edu.ph/img/logo/cas.svg',
+        'http://portal.usep.edu.ph/img/logo/ce.svg',
+        'http://portal.usep.edu.ph/img/logo/ct.svg',
+        'http://portal.usep.edu.ph/img/logo/cgbe.svg',
+        'http://portal.usep.edu.ph/img/logo/educ-logo.svg',
+        'http://portal.usep.edu.ph/img/logo/ic.svg',
+        'http://portal.usep.edu.ph/img/logo/saec-logo.svg' ]} />
         <WrappedNormalLoginForm {...this.props} />
       </div>
     )
