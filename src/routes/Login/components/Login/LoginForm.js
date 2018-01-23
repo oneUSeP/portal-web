@@ -54,7 +54,7 @@ class LoginForm extends Component {
     return (
       <Row>
         <Col xs={2} sm={3} md={4} lg={6} xl={8} xxl={8} />
-        <Col xs={20} sm={18} md={16} lg={12} xl={8} xxl={8}>
+        <Col xs={20} sm={18} md={16} lg={12} xl={8} xxl={8} style={{paddingTop: '15%'}}>
           <Form className='login-form'>
             <FormItem>
               {getFieldDecorator('accountId', {
