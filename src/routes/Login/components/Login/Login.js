@@ -4,6 +4,8 @@ import LoginForm from './LoginForm'
 import 'antd/lib/form/style/css'
 import 'antd/lib/notification/style/css'
 
+import BackgroundSlideshow from 'react-background-slideshow'
+
 import { Form, notification } from 'antd'
 
 export default class Login extends Component {
@@ -30,7 +32,17 @@ export default class Login extends Component {
   render () {
     const WrappedNormalLoginForm = Form.create()(LoginForm)
     return (
-      <WrappedNormalLoginForm {...this.props} />
+      <div>
+        <BackgroundSlideshow images={[
+        'http://localhost:3000/img/logo/cas.svg',
+        'http://localhost:3000/img/logo/ce.svg',
+        'http://localhost:3000/img/logo/ct.svg',
+        'http://localhost:3000/img/logo/cgbe.svg',
+        'http://localhost:3000/img/logo/educ-logo.svg',
+        'http://localhost:3000/img/logo/ic.svg',
+        'http://localhost:3000/img/logo/saec-logo.svg' ]} />
+        <WrappedNormalLoginForm {...this.props} />
+      </div>
     )
   }
 }

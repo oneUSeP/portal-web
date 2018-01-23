@@ -52,10 +52,25 @@ class LoginForm extends Component {
   render () {
     const { getFieldDecorator } = this.props.form
     return (
-      <Row>
+      <Row style={{zIndex: '99999'}}>
         <Col xs={2} sm={3} md={4} lg={6} xl={8} xxl={8} />
         <Col xs={20} sm={18} md={16} lg={12} xl={8} xxl={8} style={{paddingTop: '15%'}}>
-          <Form className='login-form'>
+          <div style={{
+              backgroundImage: 'url(\'http://portal.usep.edu.ph/usep-logo.png\')',
+              backgroundSize: 'cover',
+              marginLeft: 'left',
+              height: '100px',
+              width: '100px',
+              position: 'relative',
+              top: '-30px',
+              left: '180px',
+              marginBottom: '-50px',
+              border: '0px solid white',
+              borderRadius: '50px',
+              boxShadow: ' 0 6px 0 rgba(0,0,0,0.35)'
+            }}>
+          </div>
+          <Form className='login-form' style={{background: 'white', padding: '2em 2em 0em 2em'}}>
             <FormItem>
               {getFieldDecorator('accountId', {
                 rules: [{ required: true, message: 'Please input your Account ID!' }]

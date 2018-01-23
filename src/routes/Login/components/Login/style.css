@@ -7,3 +7,12 @@
 .login-form-button {
   width: 100%;
 }
+
+.box-gallery {
+  opacity: .5;
+  background-color: '#000'
+}
+
+.box-gallery .box-panel .bg-tile .bg-img img {
+  background-size: cover;
+}
