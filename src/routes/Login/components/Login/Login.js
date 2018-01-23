@@ -22,7 +22,7 @@ export default class Login extends Component {
   componentWillReceiveProps (newProps, oldProps) {
     if (newProps.auth.get('loginError')) {
       let code = newProps.auth.get('loginError').get('code')
-      let message = newProps.auth.get('loginError').get('message')
+      let message = newProps.auth.get('loginError').get('message') + 'Try to login your account using your ID-NUMBER or your Birthday(MM-DD-YYYY) as password.'
       this.openNotification('Login failed', message)
     }
   }
