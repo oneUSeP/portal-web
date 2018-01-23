@@ -320,8 +320,8 @@ class ProfileForm extends Component {
                       type: 'number'
                     }]
                   })(
-                    <InputNumber min={0}
-                      max={10000} disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberHeight(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
+                    <InputNumber min={50}
+                      max={250} disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberHeight(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                   )}
                 </FormItem>
               </Col>
@@ -468,8 +468,8 @@ class ProfileForm extends Component {
                       type: 'number'
                     }]
                   })(
-                    <InputNumber min={0}
-                      max={10000} disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberWeight(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
+                    <InputNumber min={2}
+                      max={500} disabled={!this.props.isEditing} onChange={e => { this.handleInputNumberWeight(e) }} placeholder='Please input your zip code Please input your zip code and it must be a number' />
                   )}
                 </FormItem>
               </Col>
