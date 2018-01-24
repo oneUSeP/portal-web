@@ -65,18 +65,18 @@ class LoginForm extends Component {
                 height: '100px',
                 width: '100px',
                 position: 'relative',
-                top: '-25px',
+                top: '-15px',
                 left: '20%',
                 marginBottom: '-50px',
                 border: '0px solid white',
-                borderRadius: '50px',
-                boxShadow: ' 0 6px 0 rgba(0,0,0,0.35)'
-                }}>
+                borderRadius: '50px'
+                // boxShadow: ' 0 6px 0 rgba(0,0,0,0.35)'
+              }}>
               </div>
             </Col>
             <Col xs={2} sm={3} md={4} lg={6} xl={8} xxl={8} />
           </Row>
-          <Form className='login-form' style={{background: 'white', padding: '3em 2em 0em 2em'}}>
+          <Form className='login-form' style={{background: 'white', padding: '3em 2em 0em 2em', boxShadow: ' 5px 6px 5px rgba(23,23,23,.35)'}}>
             <FormItem>
               {getFieldDecorator('accountId', {
                 rules: [{ required: true, message: 'Please input your Account ID!' }]
