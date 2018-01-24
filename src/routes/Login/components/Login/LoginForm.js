@@ -55,7 +55,7 @@ class LoginForm extends Component {
       <Row style={{zIndex: '99999'}}>
         <Col xs={2} sm={3} md={4} lg={6} xl={8} xxl={8} />
         <Col xs={20} sm={18} md={16} lg={12} xl={8} xxl={8} style={{paddingTop: '12%'}}>
-          <div style={{
+          <div className='usep-logo' style={{
             backgroundImage: 'url(\'http://portal.usep.edu.ph/usep-logo.png\')',
             backgroundSize: 'cover',
             marginLeft: 'left',

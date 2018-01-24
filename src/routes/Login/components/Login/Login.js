@@ -34,14 +34,15 @@ export default class Login extends Component {
     const WrappedNormalLoginForm = Form.create()(LoginForm)
     return (
       <div className={'main acrylic'}>
-        <BackgroundSlideshow images={[
-          'http://portal.usep.edu.ph/img/logo/ic.svg',
-          'http://portal.usep.edu.ph/img/logo/cas.svg',
-          'http://portal.usep.edu.ph/img/logo/ce.svg',
-          'http://portal.usep.edu.ph/img/logo/ct.svg',
-          'http://portal.usep.edu.ph/img/logo/cgbe.svg',
-          'http://portal.usep.edu.ph/img/logo/educ-logo.svg',
-          'http://portal.usep.edu.ph/img/logo/saec-logo.svg' ]} />
+        <BackgroundSlideshow style={{
+          backgroundAttachment: 'fixed' }} images={[
+            'http://portal.usep.edu.ph/img/logo/ic.svg',
+            'http://portal.usep.edu.ph/img/logo/cas.svg',
+            'http://portal.usep.edu.ph/img/logo/ce.svg',
+            'http://portal.usep.edu.ph/img/logo/ct.svg',
+            'http://portal.usep.edu.ph/img/logo/cgbe.svg',
+            'http://portal.usep.edu.ph/img/logo/educ-logo.svg',
+            'http://portal.usep.edu.ph/img/logo/saec-logo.svg' ]} />
         <WrappedNormalLoginForm {...this.props} />
       </div>
     )

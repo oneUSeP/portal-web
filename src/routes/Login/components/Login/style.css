@@ -61,3 +61,41 @@ input#password.ant-input {
   border-radius: 1px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 1px 8px rgba(0, 0, 0, 0.2);
 }
+
+@media only screen and (max-width: 374px) {
+  .usep-logo {
+    height: 60px !important;
+    width: 60px !important;
+    top: -20px !important;
+    left: 35% !important;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .usep-logo {
+    height: 65px !important;
+    width: 65px !important;
+    top: -20px !important;
+    left: 38% !important;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .usep-logo {
+    height: 55px !important;
+    width: 55px !important;
+    top: -20px !important;
+    left: 38% !important;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .usep-logo {
+    height: 50px !important;
+    width: 50px !important;
+    top: -30px !important;
+    left: 33% !important;
+  }
+}
+
+
