@@ -25,23 +25,6 @@ input#password.ant-input {
   background-color: #000;
 }
 
-body {
-  margin: 0;
-  font: 1em/1.4 Sans-serif;
-}
-
-body, .acrylic::before {
-  background: url("https://images.unsplash.com/photo-1452723312111-3a7d0db0e024?w=700") center/cover;
-  background-attachment: fixed;
-}
-
-main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
 .acrylic {
   padding: 4em 6em;
   position: relative;

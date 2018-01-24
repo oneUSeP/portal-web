@@ -33,7 +33,7 @@ export default class Login extends Component {
   render () {
     const WrappedNormalLoginForm = Form.create()(LoginForm)
     return (
-      <div className={'acrylic shadow'}>
+      <div className={'main acrylic'}>
         <BackgroundSlideshow images={[
           'http://portal.usep.edu.ph/img/logo/ic.svg',
           'http://portal.usep.edu.ph/img/logo/cas.svg',

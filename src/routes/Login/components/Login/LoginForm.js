@@ -55,27 +55,21 @@ class LoginForm extends Component {
       <Row style={{zIndex: '99999'}}>
         <Col xs={2} sm={3} md={4} lg={6} xl={8} xxl={8} />
         <Col xs={20} sm={18} md={16} lg={12} xl={8} xxl={8} style={{paddingTop: '12%'}}>
-          <Row>
-            <Col xs={2} sm={3} md={4} lg={6} xl={8} xxl={8} />
-            <Col xs={20} sm={18} md={16} lg={12} xl={8} xxl={8}>
-              <div style={{
-                backgroundImage: 'url(\'http://portal.usep.edu.ph/usep-logo.png\')',
-                backgroundSize: 'cover',
-                marginLeft: 'left',
-                height: '100px',
-                width: '100px',
-                position: 'relative',
-                top: '-15px',
-                left: '20%',
-                marginBottom: '-50px',
-                border: '0px solid white',
-                borderRadius: '50px'
-                // boxShadow: ' 0 6px 0 rgba(0,0,0,0.35)'
-              }}>
-              </div>
-            </Col>
-            <Col xs={2} sm={3} md={4} lg={6} xl={8} xxl={8} />
-          </Row>
+          <div style={{
+            backgroundImage: 'url(\'http://portal.usep.edu.ph/usep-logo.png\')',
+            backgroundSize: 'cover',
+            marginLeft: 'left',
+            height: '100px',
+            width: '100px',
+            position: 'relative',
+            top: '-15px',
+            left: '40%',
+            marginBottom: '-50px',
+            border: '0px solid white',
+            borderRadius: '50px'
+            // boxShadow: ' 0 6px 0 rgba(0,0,0,0.35)'
+          }}>
+          </div>
           <Form className='login-form' style={{background: 'white', padding: '3em 2em 0em 2em', boxShadow: ' 5px 6px 5px rgba(23,23,23,.35)'}}>
             <FormItem>
               {getFieldDecorator('accountId', {
