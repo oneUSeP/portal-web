@@ -335,6 +335,7 @@ class ProfileForm extends Component {
                       disabled={!this.props.isEditing}
                       style={{ width: 200 }}
                       onSelect={e => { this.setState({placeOfBirth: e}) }}
+                      onChange={e => { this.setState({placeOfBirth: e}) }}
                       dataSource={citiesFiltered}
                       name='placeOfBirth' placeholder='Please input birth place'
                       filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
@@ -549,6 +550,7 @@ class ProfileForm extends Component {
                     disabled={!this.props.isEditing}
                     style={{ width: 200 }}
                     onSelect={e => { this.setState({resTownCity: e}) }}
+                    onChange={e => { this.setState({resTownCity: e}) }}
                     dataSource={citiesFiltered}
                     name='resTownCity' placeholder='Please input your city'
                     filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
@@ -566,6 +568,7 @@ class ProfileForm extends Component {
                     disabled={!this.props.isEditing}
                     style={{ width: 200 }}
                     onSelect={e => { this.setState({resProvince: e}) }}
+                    onChange={e => { this.setState({resProvince: e}) }}
                     dataSource={provincesFiltered}
                     name='resProvince' placeholder='Please input your province'
                     filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
@@ -645,6 +648,7 @@ class ProfileForm extends Component {
                     disabled={!this.props.isEditing}
                     style={{ width: 200 }}
                     onSelect={e => { this.setState({permTownCity: e}) }}
+                    onChange={e => { this.setState({permTownCity: e}) }}
                     dataSource={citiesFiltered}
                     name='permTownCity' placeholder='Please input your city'
                     filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
@@ -663,6 +667,7 @@ class ProfileForm extends Component {
                     disabled={!this.props.isEditing}
                     style={{ width: 200 }}
                     onSelect={e => { this.setState({permProvince: e}) }}
+                    onChange={e => { this.setState({permProvince: e}) }}
                     dataSource={provincesFiltered}
                     name='permProvince' placeholder='Please input your province'
                     filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
