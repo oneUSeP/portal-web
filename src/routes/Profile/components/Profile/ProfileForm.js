@@ -334,7 +334,7 @@ class ProfileForm extends Component {
                     <AutoComplete
                       disabled={!this.props.isEditing}
                       style={{ width: 200 }}
-                      onSelect={e => { console.log('WAAAA', e) }}
+                      onSelect={e => { this.setState({placeOfBirth: e}) }}
                       dataSource={citiesFiltered}
                       name='placeOfBirth' placeholder='Please input birth place'
                       filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
