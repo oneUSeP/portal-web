@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { Form, Input, Button, Checkbox, Row, Col, DatePicker, Select, Collapse, Divider, Popconfirm, message, InputNumber } from 'antd'
+import { AutoComplete, Form, Input, Button, Checkbox, Row, Col, DatePicker, Select, Collapse, Divider, Popconfirm, message, InputNumber } from 'antd'
 const FormItem = Form.Item
 const Option = Select.Option
 const Panel = Collapse.Panel
 const ButtonGroup = Button.Group
+import cities from 'philippines/cities'
+import provinces from 'philippines/provinces'
 
 import 'antd/lib/form/style/css'
 import 'antd/lib/input/style/css'
@@ -18,6 +20,7 @@ import 'antd/lib/collapse/style/css'
 import 'antd/lib/popconfirm/style/css'
 import 'antd/lib/message/style/css'
 import 'antd/lib/input-number/style/css'
+import 'antd/lib/auto-complete/style/css'
 
 import 'antd/lib/divider/style/css'
 
@@ -150,6 +153,13 @@ class ProfileForm extends Component {
     this.setState({gender: value})
   }
 
+  handleSelectBirthplace = (value) => {
+    this.props.form.setFieldsValue({
+      placeOfBirth: value
+    })
+    this.setState({placeOfBirth: value})
+  }
+
   handleSelectChangeBloodtype = (value) => {
     this.props.form.setFieldsValue({
       bloodType: value
@@ -251,6 +261,18 @@ class ProfileForm extends Component {
       rules: [{ type: 'object', required: true, message: 'Please select date!' }]
     }
 
+    let citiesFiltered = []
+    cities.map(city => {
+      if (city.city) {
+        citiesFiltered.push(city.name)
+      }
+    })
+
+    let provincesFiltered = []
+    provinces.map(prov => {
+      provincesFiltered.push(prov.name)
+    })
+
     return (
       <Form>
         <Collapse bordered={false} defaultActiveKey={this.props.isEditing ? ['1', '2', '3'] : ['1']}>
@@ -302,14 +324,21 @@ class ProfileForm extends Component {
                     <DatePicker disabled={!this.props.isEditing} format='YYYY-MM-DD' onChange={this.onChangeDate} />
                   )}
                 </FormItem>
-                <FormItem {...formItemLayout} label='Birthplace'>
+                <FormItem {...formItemLayout} label={'Birthplace'}>
                   {getFieldDecorator('placeOfBirth', {
                     rules: [{
                       required: true,
                       message: 'Please input birth place'
                     }]
                   })(
-                    <Input disabled={!this.props.isEditing} name='placeOfBirth' onChange={e => { this.onChange(e) }} placeholder='Please input birth place' />
+                    <AutoComplete
+                      disabled={!this.props.isEditing}
+                      style={{ width: 200 }}
+                      onSelect={e => { console.log('WAAAA', e) }}
+                      dataSource={citiesFiltered}
+                      name='placeOfBirth' placeholder='Please input birth place'
+                      filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                    />
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Height (cm)'>
@@ -386,8 +415,7 @@ class ProfileForm extends Component {
                     <Select
                       disabled={!this.props.isEditing}
                       placeholder='Select your type'
-                      onChange={this.handleSelectChangeBloodtype}
-                    >
+                      onChange={this.handleSelectChangeBloodtype} >
                       <Option value='O+'>O Positive</Option>
                       <Option value='O-'>O Negative</Option>
                       <Option value='A+'>A Positive</Option>
@@ -517,7 +545,14 @@ class ProfileForm extends Component {
                     message: 'Please input your city'
                   }]
                 })(
-                  <Input disabled={!this.props.isEditing} name='resTownCity' onChange={e => { this.onChange(e) }} placeholder='Please input your city' />
+                  <AutoComplete
+                    disabled={!this.props.isEditing}
+                    style={{ width: 200 }}
+                    onSelect={e => { this.setState({resTownCity: e}) }}
+                    dataSource={citiesFiltered}
+                    name='resTownCity' placeholder='Please input your city'
+                    filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                  />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Province'>
@@ -527,7 +562,14 @@ class ProfileForm extends Component {
                     message: 'Please input your province'
                   }]
                 })(
-                  <Input disabled={!this.props.isEditing} name='resProvince' onChange={e => { this.onChange(e) }} placeholder='Please input your province' />
+                  <AutoComplete
+                    disabled={!this.props.isEditing}
+                    style={{ width: 200 }}
+                    onSelect={e => { this.setState({resProvince: e}) }}
+                    dataSource={provincesFiltered}
+                    name='resProvince' placeholder='Please input your province'
+                    filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                    />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Zip Code'>
@@ -599,7 +641,14 @@ class ProfileForm extends Component {
                   }],
                   initialValue: this.props.data ? this.props.data.permTownCity : ''
                 })(
-                  <Input disabled={!this.props.isEditing} name='permTownCity' onChange={e => { this.onChange(e) }} placeholder='Please input your city' />
+                  <AutoComplete
+                    disabled={!this.props.isEditing}
+                    style={{ width: 200 }}
+                    onSelect={e => { this.setState({permTownCity: e}) }}
+                    dataSource={citiesFiltered}
+                    name='permTownCity' placeholder='Please input your city'
+                    filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                  />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Province'>
@@ -610,7 +659,14 @@ class ProfileForm extends Component {
                   }],
                   initialValue: this.props.data ? this.props.data.permProvince : ''
                 })(
-                  <Input disabled={!this.props.isEditing} name='permProvince' onChange={e => { this.onChange(e) }} placeholder='Please input your province' />
+                  <AutoComplete
+                    disabled={!this.props.isEditing}
+                    style={{ width: 200 }}
+                    onSelect={e => { this.setState({permProvince: e}) }}
+                    dataSource={provincesFiltered}
+                    name='permProvince' placeholder='Please input your province'
+                    filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
+                    />
                 )}
               </FormItem>
               <FormItem {...formItemLayout} label='Zip Code'>

@@ -115,6 +115,7 @@
     "moment": "^2.18.1",
     "node-sass": "^4.7.2",
     "normalize.css": "^4.1.1",
+    "philippines": "^1.0.0",
     "postcss-loader": "^0.9.0",
     "react": "^15.0.0",
     "react-background-slideshow": "^1.0.3",
