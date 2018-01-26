@@ -89,7 +89,7 @@ class DashboardLayout extends Component {
             <span style={{paddingLeft: '.5em'}}>Settings</span>
           </NavLink>
         : null}
-        <Popconfirm title='Are you sure to signout from this session?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><NavLink className='ant-dropdown-menu-item' activeClassName='ant-dropdown-menu-item-active ant-dropdown-menu-item-selected' key='11' to='/'>
+        <Popconfirm title='Are you sure to signout from this session?' onConfirm={this.confirm} onCancel={this.cancel} okText='Yes' cancelText='No'><NavLink className='ant-dropdown-menu-item' activeClassName='ant-dropdown-menu-item-active ant-dropdown-menu-item-selected' key='11' to='/dashboard/logout'>
           <Icon type='logout' />
           <span style={{paddingLeft: '.5em'}}>Logout</span>
         </NavLink></Popconfirm>
