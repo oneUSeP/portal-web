@@ -305,12 +305,7 @@ class ProfileForm extends Component {
                   )}
                 </FormItem>
                 <FormItem {...formItemLayout} label='Middle Initial'>
-                  {getFieldDecorator('middleNameInitial', {
-                    rules: [{
-                      required: true,
-                      message: 'Please input your middle name initial'
-                    }]
-                  })(
+                  {getFieldDecorator('middleNameInitial')(
                     <Input disabled={!this.props.isEditing} name='middleNameInitial' onChange={e => { this.onChange(e) }} disabled placeholder='Please input your middle name initial' />
                   )}
                 </FormItem>
