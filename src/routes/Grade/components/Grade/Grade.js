@@ -12,7 +12,7 @@ class Grade extends Component {
     console.log(nextProps)
     let termId = nextProps.params.termId
     let user = this.props.auth.get('user')
-    let { ayterms, fetchingAyTermsSuccess, extraDetails, fetchingGradesSuccess } = nextProps
+    let { ayterms, fetchingAyTermsSuccess, extraDetails, fetchingGradesSuccess, grades } = nextProps
 
     if ((this.props.params.termId && this.props.params.termId != nextProps.params.termId)) {
       if (ayterms && extraDetails && user) {

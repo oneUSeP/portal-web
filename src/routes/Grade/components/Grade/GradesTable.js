@@ -147,7 +147,7 @@ class GradesTable extends Component {
     } ]
 
     return (
-      <Table scroll={{ x: 1500 }} size={'small'} title={() => `Grades for Academic Year ${this.props.params.termTitle}`} onChange={this.handleChange} rowKey={record => record.code} loading={this.props.fetchingGrades} columns={columns} dataSource={this.state.data ? this.state.data : []} />
+      <Table scroll={{ x: 1500 }} size={'middle'} title={() => `Grades for Academic Year ${this.props.params.termTitle}`} onChange={this.handleChange} rowKey={record => record.code} loading={this.props.fetchingGrades} columns={columns} dataSource={this.state.data ? this.state.data : []} />
     )
   }
 }
