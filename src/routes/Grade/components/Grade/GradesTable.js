@@ -78,7 +78,7 @@ class GradesTable extends Component {
         <div className='custom-filter-dropdown'>
           <Input
             ref={ele => this.searchInput = ele}
-            placeholder='Search name'
+            placeholder='Search Code'
             value={this.state.searchText}
             onChange={this.onInputChange}
             onPressEnter={this.onSearch}
