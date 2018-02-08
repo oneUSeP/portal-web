@@ -9,14 +9,15 @@ class DashboardLanding extends Component {
   }
 
   render () {
+    let {extraDetails} = this.props
     return (
       <div>
-        <Card loading={!this.props.fetchingProfileExtraSuccess} title={this.props.extraDetails && this.props.extraDetails.get('StudentName')} style={{ width: '34%' }}>
-          <p>{this.props.extraDetails.get('CollegeName')}</p>
-          <p>{this.props.extraDetails.get('Program')}</p>
-          <p>{this.props.extraDetails.get('Curriculum')}</p>
-          <p>{this.props.extraDetails.get('YearLevel')}</p>
-          <p>{this.props.extraDetails.get('SectionName')}</p>
+        <Card loading={!this.props.fetchingProfileExtraSuccess} title={extraDetails && extraDetails.get('StudentName')} style={{ width: '34%' }}>
+          <p>{extraDetails && extraDetails.get('CollegeName')}</p>
+          <p>{extraDetails && extraDetails.get('Program')}</p>
+          <p>{extraDetails && extraDetails.get('Curriculum')}</p>
+          <p>{extraDetails && extraDetails.get('YearLevel')}</p>
+          <p>{extraDetails && extraDetails.get('SectionName')}</p>
         </Card>
       </div>
     )
