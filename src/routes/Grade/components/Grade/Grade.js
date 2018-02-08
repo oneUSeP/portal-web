@@ -5,11 +5,11 @@ import moment from 'moment'
 
 class Grade extends Component {
   state = {
-    gradesData: null
+    gradesData: null,
+    summaryData: null
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log(nextProps)
     let termId = nextProps.params.termId
     let user = this.props.auth.get('user')
     let { ayterms, fetchingAyTermsSuccess, extraDetails, fetchingGradesSuccess, grades } = nextProps
@@ -28,7 +28,21 @@ class Grade extends Component {
 
     if (nextProps.fetchingGradesSuccess) {
       let data = nextProps.grades.get('grades')
+      let summary = nextProps.grades.get('summary')
+
       let dataSource = []
+      let summarySource = []
+      if (summary) {
+        summary.map(value => {
+          summarySource = {
+            enrolled: value.get('enrolled'),
+            earned: value.get('earned'),
+            gwa: value.get('gwa'),
+            cqpa1: value.get('cqpa1'),
+            cqpa2: value.get('cqpa2')
+          }
+        })
+      }
       data.map(grade => {
         dataSource.push({
           code: grade.get('Subject'),
@@ -42,15 +56,14 @@ class Grade extends Component {
           finalGradeDatePosted: grade.get('DatePosted') ? moment.utc(grade.get('DatePosted')).format('ddd, MMM DD YYYY') : null
         })
       })
-      this.setState({gradesData: dataSource})
+      this.setState({gradesData: dataSource, summaryData: summarySource})
     }
   }
 
   render () {
-    console.log(this.state)
     return (
       <div>
-        <GradesTable data={this.state.gradesData ? this.state.gradesData : []} {...this.props} />
+        <GradesTable data={this.state.gradesData ? this.state.gradesData : []} summary={this.state.summaryData ? this.state.summaryData : []} {...this.props} />
       </div>
     )
   }

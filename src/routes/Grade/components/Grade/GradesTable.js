@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
-import { Table, Input, Button, Icon, Timeline, Tooltip, Card, Col, Row } from 'antd'
+import { Table, Input, Button, Icon, Timeline, Tooltip, Card, Col, Row, Avatar } from 'antd'
+const { Meta } = Card
 
 import 'antd/lib/input/style/css'
 import 'antd/lib/button/style/css'
@@ -146,8 +147,52 @@ class GradesTable extends Component {
       // sortOrder: sortedInfo.columnKey === 'finalGradeDatePosted' && sortedInfo.order
     } ]
 
+    const gridStyle = {
+      width: '20%',
+      textAlign: 'center'
+    }
+    console.log(this.props)
     return (
-      <Table scroll={{ x: 1500 }} size={'middle'} title={() => `Grades for Academic Year ${this.props.params.termTitle}`} onChange={this.handleChange} rowKey={record => record.code} loading={this.props.fetchingGrades} columns={columns} dataSource={this.state.data ? this.state.data : []} />
+      <Table scroll={{ x: 1500 }} size={'middle'} title={() => `Grades for Academic Year ${this.props.params.termTitle}`} onChange={this.handleChange} rowKey={record => record.code} loading={this.props.fetchingGrades} columns={columns} dataSource={this.state.data ? this.state.data : []}
+        footer={() =>
+          <Card>
+            <Card.Grid style={gridStyle}><Meta
+              avatar={<Avatar style={{ verticalAlign: 'middle' }} size='large'>
+              {this.props.summary.gwa}
+            </Avatar>}
+              title='GWA'
+              description='Gen. Weighted Average'
+          /></Card.Grid>
+            <Card.Grid style={gridStyle}><Meta
+              avatar={<Avatar style={{ verticalAlign: 'middle' }} size='large'>
+              {this.props.summary.enrolled}
+          </Avatar>}
+              title='UNITS'
+              description='Units Enrolled'
+        /></Card.Grid>
+            <Card.Grid style={gridStyle}><Meta
+              avatar={<Avatar style={{ verticalAlign: 'middle' }} size='large'>
+              {this.props.summary.earned}
+            </Avatar>}
+              title='EARNED'
+              description='Unit(s) Earned'
+        /></Card.Grid>
+            <Card.Grid style={gridStyle}><Meta
+              avatar={<Avatar style={{ verticalAlign: 'middle' }} size='large'>
+              {this.props.summary.cqpa1}
+            </Avatar>}
+              title='CQPA'
+              description='(w/ Summer Terms)'
+        /></Card.Grid>
+            <Card.Grid style={gridStyle}><Meta
+              avatar={<Avatar style={{ verticalAlign: 'middle' }} size='large'>
+              {this.props.summary.cqpa2}
+            </Avatar>}
+              title='CQPA'
+              description='(All Academic Year/Term)'
+        /></Card.Grid>
+          </Card>
+      } />
     )
   }
 }
