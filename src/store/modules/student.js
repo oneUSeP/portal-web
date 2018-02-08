@@ -15,6 +15,9 @@ export const GET_STUDENT_FAIL = 'api/GET_STUDENT_FAIL'
 export const DELETE_STUDENT = 'api/DELETE_STUDENT'
 export const DELETE_STUDENT_SUCCESS = 'api/DELETE_STUDENT_SUCCESS'
 export const DELETE_STUDENT_FAIL = 'api/DELETE_STUDENT_FAIL'
+export const GET_STUDENT_EXTRA_DETAILS = 'api/GET_STUDENT_EXTRA_DETAILS'
+export const GET_STUDENT_EXTRA_DETAILS_SUCCESS = 'api/GET_STUDENT_EXTRA_DETAILS_SUCCESS'
+export const GET_STUDENT_EXTRA_DETAILS_FAIL = 'api/GET_STUDENT_EXTRA_DETAILS_FAIL'
 
 // ------------------------------------
 // Actions
@@ -98,6 +101,25 @@ export function updateProfile (data) {
   }
 }
 
+export function getProfileExtraDetails (id=0, termId=0) {
+  return (dispatch, getState) => {
+    dispatch(showLoading())
+    let endpoint = `/api/v1/profile/extra/${id}/${termId}`
+    const { accessToken } = getState().auth.toJS()
+    return dispatch({
+      [CALL_API]: {
+        endpoint,
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        types: [GET_STUDENT_EXTRA_DETAILS, GET_STUDENT_EXTRA_DETAILS_SUCCESS, GET_STUDENT_EXTRA_DETAILS_FAIL]
+      }
+    }).then(() => { dispatch(hideLoading()) })
+  }
+}
+
 export const actions = {
   getProfiles,
   updateProfile,
@@ -169,6 +191,7 @@ actionHandlers[ GET_STUDENT ] = state => {
   return state.merge({
     fetchingProfile: true,
     creatingProfile: false,
+    fetchingProfileExtra: false,
     creatingProfileSuccess: false,
     fetchingProfileSuccess: false,
     fetchProfileError: null
@@ -192,12 +215,43 @@ actionHandlers[ GET_STUDENT_FAIL ] = (state, action) => {
   })
 }
 
+actionHandlers[ GET_STUDENT_EXTRA_DETAILS ] = state => {
+  return state.merge({
+    fetchingProfile: false,
+    fetchingProfileExtra: true,
+    creatingProfile: false,
+    creatingProfileSuccess: false,
+    fetchingProfileSuccess: false,
+    fetchingProfileExtraSuccess: false,
+    fetchProfileError: null,
+    fetchProfileExtraError: null
+  })
+}
+
+actionHandlers[ GET_STUDENT_EXTRA_DETAILS_SUCCESS ] = (state, action) => {
+  return state.merge({
+    fetchingProfileExtra: false,
+    fetchingProfileExtraSuccess: true,
+    fetchProfileExtraError: null,
+    extraDetails: action.payload.data
+  })
+}
+
+actionHandlers[ GET_STUDENT_EXTRA_DETAILS_FAIL ] = (state, action) => {
+  return state.merge({
+    fetchingProfileExtra: false,
+    fetchingProfileExtraSuccess: false,
+    fetchProfileExtraError: action.payload.response.error
+  })
+}
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
 
 const initialState = Immutable.fromJS({
   profile: null,
+  extraDetails: null,
   profiles: null,
   creatingProfile: false,
   createProfileError: false,
@@ -207,7 +261,10 @@ const initialState = Immutable.fromJS({
   fetchingProfilesSuccess: false,
   fetchingProfile: false,
   fetchProfileError: false,
-  fetchingProfileSuccess: false
+  fetchingProfileSuccess: false,
+  fetchingProfileExtra: false,
+  fetchProfileExtraError: false,
+  fetchingProfileExtraSuccess: false
 })
 
 export default function reducer (state = initialState, action) {

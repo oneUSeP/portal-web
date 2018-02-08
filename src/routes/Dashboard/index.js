@@ -4,6 +4,7 @@ import DashboardLayoutContainer from '../../layouts/DashboardLayout/containers/D
 import DashboardLanding from '../DashboardLanding'
 import AccountRoute from '../Account'
 import ProfileRoute from '../Profile'
+import GradeRoute from '../Grade'
 
 export const createRoutes = (store) => ({
   path: '/dashboard',
@@ -19,7 +20,8 @@ export const createRoutes = (store) => ({
   indexRoute: DashboardLanding,
   childRoutes: [
     AccountRoute(store),
-    ProfileRoute(store)
+    ProfileRoute(store),
+    GradeRoute(store)
   ]
 })
 

@@ -28,9 +28,23 @@ class DashboardLayout extends Component {
   componentWillMount () {
     let user = this.props.auth.get('user')
     if (user.get('role') == 'student') {
+      this.props.getAyTerms(user.get('username'))
       this.props.getProfile(user.get('username'))
     }
   }
+
+   componentWillReceiveProps(nextProps) {
+    let user = this.props.auth.get('user')
+    let {ayterms, fetchingProfileSuccess} = nextProps
+     if(ayterms && fetchingProfileSuccess) {
+       ayterms.reverse().map((term, key) => {
+         if(key == 0) {
+          this.props.getProfileExtraDetails(user.get('username'), term.get('TermID'))
+         }
+       })
+     }
+   }
+
 
   toggle = () => {
     this.setState({
@@ -123,10 +137,14 @@ class DashboardLayout extends Component {
                 </NavLink>
               </SubMenu>
               : null}
-            {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='1' to='/dashboard/grades'>
-              <Icon type='book' />
-              <span>Grades</span>
-            </NavLink> : null}
+            {userRole == 'student'
+            ? <SubMenu key='sub1' title={<span><Icon type='book' /><span>Grades</span></span>}>
+              {this.props.ayterms && this.props.ayterms.reverse().map((term, key) =>{
+                return (<NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key={key} to={`/dashboard/grades/${term.get('TermID')}`}>
+                <span>{term.get('AYTerm')}</span>
+              </NavLink>)
+              })}
+            </SubMenu> : null}
             {userRole == 'student' ? <NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key='2' to='/dashboard/evaluation'>
               <Icon type='dot-chart' />
               <span>Evaluation</span>

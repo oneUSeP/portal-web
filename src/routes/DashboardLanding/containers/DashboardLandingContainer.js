@@ -10,7 +10,9 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => ({
   accessToken: state.auth.get('accessToken'),
-  user: state.auth.get('user')
+  user: state.auth.get('user'),
+  extraDetails: state.student.get('extraDetails'),
+  fetchingProfileExtraSuccess: state.student.get('fetchingProfileExtraSuccess')
 })
 
 export default connect(mapStateToProps, mapActionCreators)(DashboardLanding)

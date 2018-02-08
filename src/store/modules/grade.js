@@ -53,6 +53,7 @@ export function getGrades (studentId = 0, termId = 0, progClass = 0) {
 }
 
 export const actions = {
+  getAyTerms,
   getGrades
 }
 

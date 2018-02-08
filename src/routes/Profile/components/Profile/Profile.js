@@ -96,8 +96,10 @@ class Profile extends Component {
 
   componentWillMount () {
     let user = this.props.auth.get('user')
-    let { profile } = this.props
-    this.props.getProfile(user.get('username'))
+    let { profile, fetchingProfilesSuccess } = this.props
+    if(profile && !fetchingProfilesSuccess) {
+      this.props.getProfile(user.get('username'))
+    }
   }
 
   render () {
