@@ -33,18 +33,17 @@ class DashboardLayout extends Component {
     }
   }
 
-   componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     let user = this.props.auth.get('user')
     let {ayterms, fetchingProfileSuccess} = nextProps
-     if(ayterms && fetchingProfileSuccess) {
+    if (ayterms && fetchingProfileSuccess) {
        ayterms.reverse().map((term, key) => {
-         if(key == 0) {
-          this.props.getProfileExtraDetails(user.get('username'), term.get('TermID'))
+         if (key == 0) {
+           this.props.getProfileExtraDetails(user.get('username'), term.get('TermID'))
          }
        })
      }
-   }
-
+  }
 
   toggle = () => {
     this.setState({
@@ -139,8 +138,8 @@ class DashboardLayout extends Component {
               : null}
             {userRole == 'student'
             ? <SubMenu key='sub1' title={<span><Icon type='book' /><span>Grades</span></span>}>
-              {this.props.ayterms && this.props.ayterms.reverse().map((term, key) =>{
-                return (<NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key={key} to={`/dashboard/grades/${term.get('TermID')}`}>
+              {this.props.ayterms && this.props.ayterms.reverse().map((term, key) => {
+                return (<NavLink style={{paddingLeft: '24px'}} className='ant-menu-item' activeClassName='ant-menu-item-active ant-menu-item-selected' key={key} to={`/dashboard/grades/${term.get('TermID')}/${term.get('AYTerm')}`}>
                 <span>{term.get('AYTerm')}</span>
               </NavLink>)
               })}
