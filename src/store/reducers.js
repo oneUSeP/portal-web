@@ -5,7 +5,7 @@ import app from './modules/app'
 import auth from './modules/auth'
 import student from './modules/student'
 import account from './modules/account'
-// import ayterm from './modules/ayterm'
+import grade from './modules/grade'
 // import campus from './modules/campus'
 // import civilstatus from './modules/civilstatus'
 // import incomebracket from './modules/incomebracket'
@@ -22,6 +22,7 @@ export const makeRootReducer = (asyncReducers) => {
     auth,
     student,
     account,
+    grade,
     loadingBar: loadingBarReducer,
     ...asyncReducers
   })
