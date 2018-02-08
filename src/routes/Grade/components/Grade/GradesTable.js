@@ -133,31 +133,21 @@ class GradesTable extends Component {
       // sorter: (a, b) => a.remarks.length - b.remarks.length,
       // sortOrder: sortedInfo.columnKey === 'remarks' && sortedInfo.order
     }, {
-      title: 'Midterm Grade Date Posted',
+      title: 'Midterm Date Posted',
       dataIndex: 'midtermGradeDatePosted',
       key: 'midtermGradeDatePosted'
       // sorter: (a, b) => a.midtermGradeDatePosted.length - b.midtermGradeDatePosted.length,
       // sortOrder: sortedInfo.columnKey === 'midtermGradeDatePosted' && sortedInfo.order
     }, {
-      title: 'Final Grade Date Posted',
+      title: 'Final Date Posted',
       dataIndex: 'finalGradeDatePosted',
       key: 'finalGradeDatePosted'
       // sorter: (a, b) => a.finalGradeDatePosted.length - b.finalGradeDatePosted.length,
       // sortOrder: sortedInfo.columnKey === 'finalGradeDatePosted' && sortedInfo.order
     } ]
-    const gridStyle = {
-      width: '20%',
-      textAlign: 'center'
-    }
+
     return (
-      <Table size={'small'} title={() => `Grades for ${this.props.params.termTitle}`} onChange={this.handleChange} rowKey={record => record.code} loading={this.props.fetchingGrades} columns={columns} dataSource={this.state.data ? this.state.data : []}
-        footer={() => <Card title='Summary'>
-        <Card.Grid style={gridStyle}>Content</Card.Grid>
-        <Card.Grid style={gridStyle}>Content</Card.Grid>
-        <Card.Grid style={gridStyle}>Content</Card.Grid>
-        <Card.Grid style={gridStyle}>Content</Card.Grid>
-        <Card.Grid style={gridStyle}>Content</Card.Grid>
-      </Card>} />
+      <Table scroll={{ x: 1500 }} size={'small'} title={() => `Grades for Academic Year ${this.props.params.termTitle}`} onChange={this.handleChange} rowKey={record => record.code} loading={this.props.fetchingGrades} columns={columns} dataSource={this.state.data ? this.state.data : []} />
     )
   }
 }

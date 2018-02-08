@@ -38,8 +38,8 @@ class Grade extends Component {
           final: grade.get('Final'),
           reExam: grade.get('ReExam'),
           remarks: grade.get('GradeRemarks'),
-          midtermGradeDatePosted: grade.get('MidtermGradesPostingDate') ? moment.utc(grade.get('MidtermGradesPostingDate')).format('dddd, MM/DD/YY') : null,
-          finalGradeDatePosted: grade.get('DatePosted') ? moment.utc(grade.get('DatePosted')).format('dddd, MM/DD/YY') : null
+          midtermGradeDatePosted: grade.get('MidtermGradesPostingDate') ? moment.utc(grade.get('MidtermGradesPostingDate')).format('ddd, MMM DD YYYY') : null,
+          finalGradeDatePosted: grade.get('DatePosted') ? moment.utc(grade.get('DatePosted')).format('ddd, MMM DD YYYY') : null
         })
       })
       this.setState({gradesData: dataSource})

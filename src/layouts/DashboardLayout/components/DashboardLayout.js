@@ -37,12 +37,12 @@ class DashboardLayout extends Component {
     let user = this.props.auth.get('user')
     let {ayterms, fetchingProfileSuccess} = nextProps
     if (ayterms && fetchingProfileSuccess) {
-       ayterms.reverse().map((term, key) => {
+      ayterms.reverse().map((term, key) => {
          if (key == 0) {
            this.props.getProfileExtraDetails(user.get('username'), term.get('TermID'))
          }
        })
-     }
+    }
   }
 
   toggle = () => {
