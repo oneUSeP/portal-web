@@ -94,6 +94,7 @@ actionHandlers[ GET_ME_AYTERMS_FAIL ] = (state, action) => {
 
 actionHandlers[ GET_ME_GRADES ] = state => {
   return state.merge({
+    fetchingAyTermsSuccess: false,
     fetchingGrades: true,
     fetchingGradesSuccess: false,
     fetchGradesError: null
