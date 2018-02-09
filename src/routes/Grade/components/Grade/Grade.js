@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import GradesTable from './GradesTable'
 import moment from 'moment'
+import {Button} from 'antd'
 
 class Grade extends Component {
   state = {
@@ -63,6 +64,9 @@ class Grade extends Component {
   render () {
     return (
       <div>
+      <div style={{ marginBottom: 16 }}>
+        <Button icon="printer" type='primary'>Print</Button>
+      </div>
         <GradesTable data={this.state.gradesData ? this.state.gradesData : []} summary={this.state.summaryData ? this.state.summaryData : []} {...this.props} />
       </div>
     )
