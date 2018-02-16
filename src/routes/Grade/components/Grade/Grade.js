@@ -64,9 +64,9 @@ class Grade extends Component {
   render () {
     return (
       <div>
-      <div style={{ marginBottom: 16 }}>
+      {/* <div style={{ marginBottom: 16 }}>
         <Button icon="printer" type='primary'>Print</Button>
-      </div>
+      </div> */}
         <GradesTable data={this.state.gradesData ? this.state.gradesData : []} summary={this.state.summaryData ? this.state.summaryData : []} {...this.props} />
       </div>
     )

@@ -24,7 +24,7 @@ class Account extends Component {
   }
 
   componentWillMount () {
-    this.props.getAccounts(1, 99)
+    this.props.getAccounts(1, 99999)
   }
 
   render () {
